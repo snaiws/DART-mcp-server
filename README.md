@@ -4,6 +4,8 @@
 # feature(0.1.0)
 1. python
 2. Windows
+3. stdio
+4. uv
 
 # todo
 1. API request functions(DART)
