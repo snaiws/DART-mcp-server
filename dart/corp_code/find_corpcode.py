@@ -15,18 +15,16 @@ def safe_distance(s1, s2):
 
 async def get_corpcode(path_corplist, user_input):
     df = pd.read_xml(path_corplist)
-
     search = df[df['corp_name']==user_input]
-    if search.empty:
-        search = df[df['corp_name']==user_input]
-    else:
-        return search['corp_code'].to_list()[0]
+
+    if not search.empty:
+        search['corp_code'] = search['corp_code'].map(lambda x: str(x).zfill(8))
+        return list(search.T.to_dict().values())
     
     search = df[df['corp_eng_name']==user_input]
-    if search.empty:
-        search = df[df['corp_eng_name']==user_input]
-    else:
-        return search['corp_code'].to_list()[0]
+    if not search.empty:
+        search['corp_code'] = search['corp_code'].map(lambda x: str(x).zfill(8))
+        return list(search.T.to_dict().values())
     
     return "딱 맞는 결과가 없습니다. get_corp_candidates를 사용하여 유사한 후보를 추려보세요."
     
@@ -38,7 +36,10 @@ async def get_corp_candidates(path_corplist, user_input, n):
         safe_distance(user_input, row['corp_name']),
         safe_distance(user_input, row['corp_eng_name'])
     ), axis=1)
-    return list(df.sort_values(by='dist', ascending=False).head(n).T.to_dict().values())
+
+    search = df.sort_values(by='dist', ascending=False)
+    search['corp_code'] = search['corp_code'].map(lambda x: str(x).zfill(8))
+    return list(search.head(n).T.to_dict().values())
 
 
 

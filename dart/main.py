@@ -1,9 +1,11 @@
 import os
 import traceback
+import json
 
 from mcp.server.fastmcp import FastMCP
 
 from corp_code import update_corplist, get_corpcode, get_corp_candidates
+from corp_info import get_corpinfo
 
 
 
@@ -12,9 +14,20 @@ mcp = FastMCP("DART")
 
 # constants
 URL_CORPCODE = "https://opendart.fss.or.kr/api/corpCode.xml?crtfc_key={key}"
+URL_CORPINFO = "https://opendart.fss.or.kr/api/company.json"
 PATH_DIR = os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART') # for Windows
 os.makedirs(PATH_DIR, exist_ok=True)
 PATH_CORPLIST = os.path.join(PATH_DIR, "CORPCODE.xml")
+
+with open("termap.json", "r", encoding='utf-8') as f:
+    TERMAP = json.load(f)
+
+def format_dict(feature: dict) -> str:
+    """Format an alert feature into a readable string."""
+    result = [f"{TERMAP.get(x, x)}: {feature[x]}" for x in feature]
+    result = "\n".join(result)
+    return result
+
 
 
 @mcp.tool()
@@ -82,6 +95,30 @@ if a company reveals twice in the result, select recent one using modify_date.
         answer.append(error_msg)
 
     return "\n---\n".join(answer)
+
+
+@mcp.tool()
+async def mcp_get_corp_info(key:str, corp_code:str) -> str:
+    """Get rough infomation of a company(기업개황) from DART system.
+
+    Args:
+        key(str): API Key for DART system. Ask to user to get this.
+        corp_code(str) : a unique code of a company, which is used in DART system.(8 lengths)
+    Return:
+        response(str): a message including information()
+    """
+    answer = ["[실행 결과]"]
+    try:
+        response = await get_corpinfo(key, URL_CORPINFO, corp_code)
+        answer.append(format_dict(response))
+
+    except Exception as e:
+        error_msg = traceback.format_exc()
+        answer.append(error_msg)
+
+    return "\n---\n".join(answer)
+
+
 
 if __name__ == "__main__":
     # Initialize and run the server
