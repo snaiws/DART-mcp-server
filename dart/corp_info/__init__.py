@@ -1,1 +1,0 @@
-from .get_corpinfo import get_corpinfo

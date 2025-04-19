@@ -1,0 +1,1 @@
+from .capital import get_capitalstatus
