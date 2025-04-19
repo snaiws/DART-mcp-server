@@ -15,6 +15,7 @@ from configs import ConfigDefineTool
 config = ConfigDefineTool()
 env = config.get_env()
 endpoint = config.get_endpoint()
+mapping = config.get_mapping()
 
 # 내 문서에 mcp 서버용 디렉토리 생성(회사리스트, 로그)
 os.makedirs(env.PATH_BASE, exist_ok=True)
@@ -147,8 +148,8 @@ async def mcp_get_disclosurelist(key:str, corp_code:str, bgn_de:str, end_de:str,
         last_reprt_at (str, optional): Search only final reports (Y or N, default: N)  
         pblntf_ty (str, optional): Disclosure type (A, B, C, D, E, F, G, H, I, J)  
         pblntf_detail_ty (str, optional): Detailed disclosure type  
-        corp_cls (str, optional): Corporation classification (Y: KOSPI, K: KOSDAQ, N: KONEX, E: Etc)  
-        sort (str, optional): Sort field (date: Filing date, crp: Company name, rpt: Report name, default: date)  
+        corp_cls (str, optional): Corporation classification (Y: KOSPI, K: KOSDAQ, N: KONEX, E: Etc)
+        sort (str, optional): Sort field (date: Filing date, crp: Company name, rpt: Report name, default: date)
         sort_mth (str, optional): Sort order (asc: Ascending, desc: Descending, default: desc)  
         page_no (int, optional): Page number (1~n, default: 1)  
         page_count (int, optional): Number of items per page (1~100, default: 10, max: 100)  
@@ -184,8 +185,12 @@ async def mcp_get_capitalstatus(key:str, corp_code:str, bsns_year:str, reprt_cod
     """
     answer = ["[실행 결과]"]
     try:
-        response = await get_capitalstatus(client, endpoint.URL_CORPINFO, key, corp_code, bsns_year, reprt_code)
-        answer.append(format_dict(response))
+        response = await get_capitalstatus(client, endpoint.URL_CAPTSTAT, key, corp_code, bsns_year, reprt_code)
+        # 파싱
+        transform = mapping.TerminologyCapitalStatus().to_dict()
+        for report in response['list']:
+            transformed = {transform[k]: report[k] for k in transform}
+            answer.append(format_dict(transformed))
 
     except Exception as e:
         error_msg = traceback.format_exc()

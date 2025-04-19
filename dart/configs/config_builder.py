@@ -1,5 +1,9 @@
+import importlib
+
 from .env import EnvDefineUnit
 from .endpoint import EndpointDefineUnit
+
+from . import terminology_alert
 
 class ConfigDefineTool:
     def get_env(self):
@@ -11,6 +15,9 @@ class ConfigDefineTool:
         return self.endpoint
 
 
+    def get_mapping(self):
+        module = terminology_alert
+        return module
 
 if __name__ == "__main__":
     tool = ConfigDefineTool()

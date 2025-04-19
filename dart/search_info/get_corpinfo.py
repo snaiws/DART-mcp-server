@@ -21,16 +21,19 @@ if __name__ == "__main__":
     from dotenv import load_dotenv
     load_dotenv(verbose=False)
 
-    url = "https://opendart.fss.or.kr/api/company.json"
-    API_KEY = os.getenv("DART_API_KEY")
-    client = httpx.Client()
-    print(API_KEY)
+    async def test():
+        url = "https://opendart.fss.or.kr/api/company.json"
+        API_KEY = os.getenv("DART_API_KEY")
+        print(API_KEY)
+        async with httpx.AsyncClient() as client:
 
-    result = asyncio.run(get_corpinfo(
-        client = client,
-        url = url,
-        api_key=API_KEY,
-        corp_code="00126380",  # 삼성전자 고유번호
-    ))
+            result = await get_corpinfo(
+                client = client,
+                url = url,
+                api_key=API_KEY,
+                corp_code="00126380",  # 삼성전자 고유번호
+            )
 
-    print(result)
+        print(result)
+        
+    asyncio.run(test())

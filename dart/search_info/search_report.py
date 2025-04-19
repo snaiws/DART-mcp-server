@@ -76,18 +76,22 @@ if __name__ == "__main__":
     import httpx
     from dotenv import load_dotenv
     load_dotenv(verbose=False)
-
-    url = "https://opendart.fss.or.kr/api/list.json"
-    API_KEY = os.getenv("DART_API_KEY")
-    client = httpx.Client()
-    print(API_KEY)
     
-    result = asyncio.run(get_disclosurelist(
-        client = client,
-        url = url,
-        api_key=API_KEY,
-        corp_code="00126380",  # 삼성전자 고유번호
-        bgn_de="20240101",
-        end_de="20241231",
-    ))
-    print(result)
+    async def test():
+        url = "https://opendart.fss.or.kr/api/list.json"
+        API_KEY = os.getenv("DART_API_KEY")
+        print(API_KEY)
+        async with httpx.AsyncClient() as client:
+
+            result = await get_disclosurelist(
+                client = client,
+                url = url,
+                api_key=API_KEY,
+                corp_code="00126380",  # 삼성전자 고유번호
+                bgn_de="20240101",
+                end_de="20241231",
+            )
+
+        print(result)
+        
+    asyncio.run(test())

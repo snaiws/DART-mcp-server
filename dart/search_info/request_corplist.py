@@ -39,11 +39,18 @@ if __name__ == "__main__":
     from dotenv import load_dotenv
     load_dotenv(verbose=False)
 
-    url = "https://opendart.fss.or.kr/api/list.json"
-    API_KEY = os.getenv("DART_API_KEY")
-    client = httpx.Client()
-    asyncio.run(update_corplist(
-            client = client,
-            url = url,
-            api_key=API_KEY
-    ))
+    async def test():
+        url = "https://opendart.fss.or.kr/api/list.json"
+        API_KEY = os.getenv("DART_API_KEY")
+        print(API_KEY)
+        async with httpx.AsyncClient() as client:
+
+            result = await update_corplist(
+                client = client,
+                url = url,
+                api_key=API_KEY
+            )
+
+        print(result)
+        
+    asyncio.run(test())

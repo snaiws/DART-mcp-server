@@ -9,6 +9,7 @@ class EndpointDefineUnit:
     URL_CORPCODE:str = "/corpCode.xml?crtfc_key={api_key}"
     URL_CORPINFO:str = "/company.json"
     URL_DICSLIST:str = "/list.json"
+    URL_CAPTSTAT:str = "/irdsSttus.json"
 
     def to_dict(self):
         return asdict(self)
