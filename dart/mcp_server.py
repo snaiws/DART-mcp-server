@@ -125,7 +125,11 @@ async def mcp_get_corp_info(key:str, corp_code:str) -> str:
     answer = ["[Execution result]"]
     try:
         response = await get_corpinfo(client, endpoint.URL_CORPINFO, key, corp_code)
-        answer.append(format_dict(response))
+        # 파싱
+        transform = mapping.TerminologyCorpInfo().to_dict()
+        transformed = {transform[k]: response[k] for k in transform}
+        answer.append(format_dict(transformed))
+
 
     except Exception as e:
         error_msg = traceback.format_exc()
@@ -135,9 +139,9 @@ async def mcp_get_corp_info(key:str, corp_code:str) -> str:
 
 
 @mcp.tool()
-async def mcp_get_disclosurelist(key:str, corp_code:str, bgn_de:str, end_de:str, last_reprt_at:str,
-                                 pblntf_ty:str, pblntf_detail_ty:str, corp_cls:str, sort:str, sort_mth:str, 
-                                 page_no:int, page_count:int) -> str:
+async def mcp_get_disclosurelist(key:str, corp_code:str, bgn_de:str, end_de:str, last_reprt_at:str=None,
+                                 pblntf_ty:str=None, pblntf_detail_ty:str=None, corp_cls:str=None, sort:str=None, sort_mth:str=None, 
+                                 page_no:int=None, page_count:int=None) -> str:
     """Get list of disclosure of a company. you can narrow the result by optional inputs.
 
     Args:
@@ -161,7 +165,11 @@ async def mcp_get_disclosurelist(key:str, corp_code:str, bgn_de:str, end_de:str,
         response = await get_disclosurelist(client, endpoint.URL_DICSLIST, key, corp_code, bgn_de, end_de,
                                       last_reprt_at, pblntf_ty, pblntf_detail_ty, corp_cls, sort,
                                       sort_mth, page_no, page_count)
-        answer.append(format_dict(response))
+        # 파싱
+        transform = mapping.TerminologyDisclosureList().to_dict()
+        for report in response['list']:
+            transformed = {transform[k]: report[k] for k in transform}
+            answer.append(format_dict(transformed))
 
     except Exception as e:
         error_msg = traceback.format_exc()

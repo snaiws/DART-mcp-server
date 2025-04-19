@@ -39,27 +39,29 @@ async def get_disclosurelist(
     # 요청 파라미터 설정
     params = {
         'crtfc_key': api_key,
-        'last_reprt_at': last_reprt_at,
-        'sort': sort,
-        'sort_mth': sort_mth,
-        'page_no': page_no,
-        'page_count': page_count
+        'corp_code' : corp_code,
+        'bgn_de' : bgn_de,
+        'end_de' : end_de
     }
     
     # 선택적 파라미터 추가
-    if corp_code:
-        params['corp_code'] = corp_code
-    if bgn_de:
-        params['bgn_de'] = bgn_de
-    if end_de:
-        params['end_de'] = end_de
+    if last_reprt_at:
+        params['last_reprt_at'] = last_reprt_at
     if pblntf_ty:
         params['pblntf_ty'] = pblntf_ty
     if pblntf_detail_ty:
-        params['pblntf_detail_ty'] = pblntf_detail_ty
+        pblntf_detail_ty['pblntf_detail_ty'] = pblntf_detail_ty
     if corp_cls:
         params['corp_cls'] = corp_cls
-    
+    if sort:
+        params['sort'] = sort
+    if sort_mth:
+        params['sort_mth'] = sort_mth
+    if page_no:
+        params['page_no'] = page_no
+    if page_count:
+        params['page_count'] = page_count
+        
     # 클라이언트로 API 요청 보내기
     response = await client.get(url, params=params)
     
