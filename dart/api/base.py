@@ -6,7 +6,10 @@ import logging
 
 from .exception import APIRequestError, APIServerError, APITimeoutError, APIRateLimitExceeded
 
+
+
 logger = logging.getLogger()
+
 
 class BaseAPIClient(ABC):
     """
@@ -133,28 +136,28 @@ class BaseAPIClient(ABC):
     def _handle_timeout_error(self, error):
         """타임아웃 에러 처리 헬퍼 메소드"""
         error_msg = f"Request timed out: {str(error)}"
-        self.logger.error(error_msg)
+        logger.error(error_msg)
         raise APITimeoutError(error_msg)
     
     def _handle_http_error(self, error, status_code=None, response=None):
         """HTTP 에러 처리 헬퍼 메소드"""
         error_msg = f"HTTP error occurred: {status_code} - {str(error)}"
-        self.logger.error(error_msg)
+        logger.error(error_msg)
         raise APIRequestError(error_msg, status_code=status_code, response=response)
     
     def _handle_request_error(self, error):
         """요청 에러 처리 헬퍼 메소드"""
         error_msg = f"Request error occurred: {str(error)}"
-        self.logger.error(error_msg)
+        logger.error(error_msg)
         raise APIRequestError(error_msg)
     
     def _handle_server_error(self, error_msg, status_code, response):
         """서버 에러 처리 헬퍼 메소드"""
-        self.logger.error(error_msg)
+        logger.error(error_msg)
         raise APIServerError(error_msg, status_code=status_code, response=response)
     
     def _handle_unexpected_error(self, error):
         """예상치 못한 에러 처리 헬퍼 메소드"""
         error_msg = f"Unexpected error: {str(error)}"
-        self.logger.error(error_msg)
+        logger.error(error_msg)
         raise APIRequestError(error_msg)
