@@ -22,12 +22,11 @@ os.makedirs(env.PATH_BASE, exist_ok=True)
 
 # 로거 선언
 now = get_now(env.REGION, form="%Y%m%d%H%M%S")
-logger = setup_logger(env.PATH_BASE, now)
+logger = setup_logger(env.PATH_BASE)
 
 # API 클라이언트 선언
 client = DARTAPIClient(
     env.BASE_URL, 
-    logger, 
     timeout = env.CLIENT_MAX_PATIENT, 
     rate_limit = env.API_RATE_LIMIT, 
     rate_period = env.API_RATE_PERIOD
