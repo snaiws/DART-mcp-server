@@ -1,4 +1,5 @@
 from typing import Dict, Any, Optional
+import logging
 
 import httpx
 
@@ -6,13 +7,16 @@ from .base import BaseAPIClient
 
 
 
+logger = logging.get()
+
+
 class DARTAPIClient(BaseAPIClient):
     """
     DART 서버에 대한 비동기 HTTP API 클라이언트
     """
-    def __init__(self, base_url, logger, timeout: float = 10.0, 
+    def __init__(self, base_url, timeout: float = 10.0, 
                  rate_limit: int = 1000, rate_period: int = 60):
-        super().__init__(base_url, logger, timeout, rate_limit, rate_period)
+        super().__init__(base_url, timeout, rate_limit, rate_period)
         
         # HTTP 클라이언트 생성
         self._initialized = True
