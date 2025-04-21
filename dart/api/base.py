@@ -2,10 +2,11 @@ from abc import ABC, abstractmethod
 import asyncio
 import time
 from typing import Dict, Any, Optional
+import logging
 
 from .exception import APIRequestError, APIServerError, APITimeoutError, APIRateLimitExceeded
 
-
+logger = logging.getLogger()
 
 class BaseAPIClient(ABC):
     """
@@ -31,9 +32,6 @@ class BaseAPIClient(ABC):
         self.rate_limit = rate_limit  # 분당 최대 요청 수
         self.rate_period = rate_period  # 초 단위 기간 (60초 = 1분)
         self._request_timestamps = []  # 요청 타임스탬프 기록
-        
-        # 로거 설정
-        self.logger = logger
         
         self._initialized = True
     
