@@ -13,7 +13,7 @@ def rotator(source, dest):
     os.remove(source)
 
 
-def setup_logging(LOG_DIR, log_level="DEBUG", retention_days=7):
+def setup_logger(LOG_DIR, log_level="DEBUG", retention_days=7):
     """
     모든 로거가 같은 파일에 로그를 남기도록 설정하는 함수
     """

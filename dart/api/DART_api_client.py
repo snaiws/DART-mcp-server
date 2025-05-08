@@ -7,7 +7,7 @@ from .base import BaseAPIClient
 
 
 
-logger = logging.get()
+logger = logging.getLogger()
 
 
 class DARTAPIClient(BaseAPIClient):
