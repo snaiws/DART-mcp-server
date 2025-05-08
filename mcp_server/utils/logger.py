@@ -71,7 +71,7 @@ if __name__ == "__main__":
     LOG_DIR = os.getenv("PATH_LOG_VIRTUAL", "./logs")
         
     # 통합 로깅 설정
-    root_logger = setup_logging(LOG_DIR)
+    root_logger = setup_logger(LOG_DIR)
     
     # 각 로거 사용 예
     root_logger.info("Data processing started")
