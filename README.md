@@ -1,6 +1,5 @@
 # DART-mcp-server
 한국의 전자공시시스템 API를 활용하는 mcp 서버
-# 소개
 
 DART-MCP-서버는 한국의 전자공시시스템(DART) API를 활용하여 Claude와 같은 AI 모델이 상장 기업의 공시 정보에 접근할 수 있게 하는 Model Context Protocol(MCP) 서버입니다. 이 서버를 활용하면 금융 데이터, 기업 공시 정보, 재무제표 등을 AI 모델이 쉽게 분석하고 활용할 수 있습니다.
 
@@ -12,15 +11,15 @@ MCP를 활용하면 AI 시스템이 외부 데이터베이스, API, 파일 시�
 
 ### 구조
 
-![Frame 2-(Compressify.io).jpg](attachment:2c05acc5-e22a-4897-b32a-f595e35ae2ce:Frame_2-(Compressify.io).jpg)
+![Frame 2-(Compressify.io).jpg](assets/now.jpg)
 
 ### Futureworks
 
-![Frame 3-(Compressify.io).jpg](attachment:90e9f2ed-386b-45a9-b2ec-cdcf01185ace:Frame_3-(Compressify.io).jpg)
+![Frame 3-(Compressify.io).jpg](assets/future.jpg)
 
 ### 코드구조
 
-![Frame 1-(Compressify.io).jpg](attachment:f11daae8-55d1-42e7-9f44-903c654beb9c:Frame_1-(Compressify.io).jpg)
+![Frame 1-(Compressify.io).jpg](assets/code.jpg)
 
 1. mcp 툴을 만드는데 원본 함수, 툴 docstring이 필요합니다
 2. caller의 원본함수와 docstring 객체의 이름을 일정한 규칙으로 매칭시켜 만들었습니다.
