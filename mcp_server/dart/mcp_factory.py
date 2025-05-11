@@ -71,11 +71,6 @@ class McpFactory:
         # mcp.tool() 데코레이터 적용
         wrapped_function = self.mcp.tool()(dynamic_function)
         
-        # 데코레이터 적용 후에도 원래 이름 유지
-        wrapped_function.__name__ = function_name
-        wrapped_function.__doc__ = docstring
-        wrapped_function.__signature__ = signature
-        
         return wrapped_function
 
 
