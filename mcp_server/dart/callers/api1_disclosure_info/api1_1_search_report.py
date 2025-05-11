@@ -16,28 +16,6 @@ async def get_disclosurelist(
     page_no:int=1,
     page_count:int=10
     ) -> list:
-    """
-    DART 시스템에서 공시 정보 목록을 가져오는 함수 (httpx 사용)
-    corp_code를 필수로 제한(목적상)
-    bgn_de, end_de가 없으면 검색결과가 있어도 안나올 수 있으므로 필수로 제한
-    
-    Args:
-        api_key (str): 발급받은 API 인증키 (40자리)
-        corp_code (str): 공시대상회사의 고유번호 (8자리)
-        bgn_de (str): 검색시작 접수일자 (YYYYMMDD)
-        end_de (str): 검색종료 접수일자 (YYYYMMDD)
-        last_reprt_at (str, optional): 최종보고서만 검색여부 (Y or N, 기본값: N)
-        pblntf_ty (str, optional): 공시유형 (A, B, C, D, E, F, G, H, I, J)
-        pblntf_detail_ty (str, optional): 공시상세유형
-        corp_cls (str, optional): 법인구분 (Y: 유가, K: 코스닥, N: 코넥스, E: 기타)
-        sort (str, optional): 정렬 기준 (date: 접수일자, crp: 회사명, rpt: 보고서명, 기본값: date)
-        sort_mth (str, optional): 정렬방법 (asc: 오름차순, desc: 내림차순, 기본값: desc)
-        page_no (int, optional): 페이지 번호 (1~n, 기본값: 1)
-        page_count (int, optional): 페이지당 건수 (1~100, 기본값: 10, 최대값: 100)
-    
-    Returns:
-        dict: API 응답 결과
-    """
     # 요청 파라미터 설정
     params = {
         'crtfc_key': api_key,
