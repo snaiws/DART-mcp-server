@@ -30,10 +30,22 @@ async def get_corp_candidates(path_corplist:str, user_input:str, n:int):
     search['corp_code'] = search['corp_code'].map(lambda x: str(x).zfill(8))
     return list(search.head(n).T.to_dict().values())
 
+    
 
-
+# 사용 예시
 if __name__ == "__main__":
-    path_corplist = "C:\\Users\\lghmk\\Documents\\mcp\\DART\\CORPCODE.xml"
-    user_input = "진성전지"
-    n = 5
-    res = get_corp_candidates(path_corplist, user_input, n)
+    import os
+    import asyncio
+    
+    async def test():
+    # uv run -m dart.callers.api1_disclosure_info.api1_6_search_candidates
+        path_corplist = os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')
+        user_input = "진성전지"
+        n = 5
+        res = await get_corp_candidates(path_corplist, user_input, n)
+
+        print(res)
+        return res
+
+    
+    asyncio.run(test())
