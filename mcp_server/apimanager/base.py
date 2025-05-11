@@ -28,19 +28,18 @@ class BaseAPIManager(ABC):
     def __init__(self, base_url, 
                  timeout: float = None, 
                  rate_limit: int = None, 
-                 rate_period: int = None
+                 rate_period: int = None,
+                 exception_server_error: APIServerError = None,
                  ):
         # 이미 초기화된 경우 중복 초기화 방지
         if hasattr(self, '_initialized') and self._initialized:
             return
 
         self.base_url = base_url
-        if timeout is not None:
-            self.timeout = timeout
-        if rate_limit is not None:
-            self.rate_limit = rate_limit  # 분당 최대 요청 수
-        if rate_period is not None:
-            self.rate_period = rate_period  # 초 단위 기간 (60초 = 1분)
+        self.timeout = timeout
+        self.rate_limit = rate_limit  # 분당 최대 요청 수
+        self.rate_period = rate_period  # 초 단위 기간 (60초 = 1분)
+        self.exception_server_error = exception_server_error
         self._request_timestamps = []  # 요청 타임스탬프 기록
         
         self._initialized = True
@@ -205,18 +204,18 @@ class BaseAPIManager(ABC):
             )
         return self._handle_response(response)
 
-    
-    @abstractmethod
-    def _is_server_error(self, response):
-        '''
-        base_url마다 다름
-        '''
-        pass
 
     @abstractmethod
     def _handle_response(self, response):
         """응답 처리 및 에러 확인"""
-        pass
+        try:
+            response.raise_for_status()
+            if self._is_server_error(response):
+                self._handle_server_error(response)
+            else:
+                return response
+        except:
+            pass
     
 
     def _handle_timeout_error(self, error):
@@ -237,13 +236,22 @@ class BaseAPIManager(ABC):
         logger.error(error_msg)
         raise APIRequestError(error_msg)
     
-    def _handle_server_error(self, error_msg, status_code, response):
-        """서버 에러 처리 헬퍼 메소드"""
-        logger.error(error_msg)
-        raise APIServerError(error_msg, status_code=status_code, response=response)
     
     def _handle_unexpected_error(self, error):
         """예상치 못한 에러 처리 헬퍼 메소드"""
         error_msg = f"Unexpected error: {str(error)}"
         logger.error(error_msg)
         raise APIRequestError(error_msg)
+
+
+    def _handle_server_error(self, response):
+        """서버 에러 처리 헬퍼 메소드"""
+        if self.exception_server_error is None:
+            pass
+        self.exception_server_error.handle(response)
+
+
+    def _is_server_error(self, response):
+        if self.exception_server_error is None:
+            return False
+        return self.exception_server_error.is_server_error(response)

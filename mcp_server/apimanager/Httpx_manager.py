@@ -10,9 +10,20 @@ class HttpxAPIManager(BaseAPIManager):
     """
     Httpx 비동기 API 매니저
     """
-    def __init__(self, base_url, timeout: float = 10.0, 
-                 rate_limit: int = 1000, rate_period: int = 60):
-        super().__init__(base_url, timeout, rate_limit, rate_period)
+    def __init__(
+        self, 
+        base_url, 
+        timeout: float = 10.0, 
+        rate_limit: int = 1000, 
+        rate_period: int = 60, 
+        exception_server_error = None
+        ):
+        super().__init__(
+            base_url = base_url, 
+            timeout =timeout, 
+            rate_limit = rate_limit, 
+            rate_period = rate_period, 
+            exception_server_error = exception_server_error)
         
         # HTTP 클라이언트 생성
         self._initialized = True
@@ -28,15 +39,11 @@ class HttpxAPIManager(BaseAPIManager):
         if hasattr(self, 'client'):
             await self.client.aclose()
 
-
-    def _is_server_error(self, response):
-        pass
     
     def _handle_response(self, response: httpx.Response):
         """HTTPX 응답 처리 및 에러 확인"""
         try:
             response.raise_for_status()
-            return response
         except httpx.TimeoutException as e:
             self._handle_timeout_error(e)
         except httpx.HTTPStatusError as e:
@@ -46,6 +53,12 @@ class HttpxAPIManager(BaseAPIManager):
         except Exception as e:
             self._handle_unexpected_error(e)
         
+        if self._is_server_error(response):
+            self._handle_server_error(response)
+        else:
+            return response
+
+            
 
     async def _get(self, endpoint: str, params: Optional[Dict[str, Any]] = None, 
                   headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
