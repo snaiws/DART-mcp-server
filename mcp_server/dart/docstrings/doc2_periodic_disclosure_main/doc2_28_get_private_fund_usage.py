@@ -4,12 +4,13 @@ from dataclasses import dataclass
 
 @dataclass
 class Docstring_get_private_fund_usage:
-    docstring = """Get information of a company's capital status from its periodic disclosure in DART system.(증자/감자 현황)
+    docstring = """(사모자금의 사용내역)This function retrieves detailed information about how a company has used its privately raised funds, as reported in periodic disclosures. The data includes both the planned usage of funds as stated in major issue reports and the actual usage details, allowing for comparison between intended and actual fund allocation. The function also provides information on any discrepancies between planned and actual usage.
+
 
 Args:
-    key(str): API Key for DART system. Ask to user to get this.
+    api_key(str): API Key for DART system. Ask to user to get this.
     corp_code(str): A unique code of a company, which is used in DART system (8 lengths).
-    bsns_year(str): Business year for which capital status is reported (4 lengths, available after 2015).
+    bsns_year(str): Business year for which the information is reported (4 lengths, available after 2015).
     reprt_code(str): A unique code of a period (1분기보고서: 11013, 반기보고서: 11012, 3분기보고서: 11014, 사업보고서: 11011).
 
 Return:
