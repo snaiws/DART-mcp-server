@@ -41,7 +41,7 @@ class ApiDefineUnit:
     # get_board_approved_compensation: dict = field(default_factory=lambda: {"name": "이사·감사 전체의 보수현황(주주총회 승인금액)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 2-25
     # get_board_compensation_by_type: dict = field(default_factory=lambda: {"name": "이사·감사 전체의 보수현황(보수지급금액 - 유형별)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 2-26
     # get_public_fund_usage: dict = field(default_factory=lambda: {"name": "공모자금의 사용내역", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 2-27
-    # get_private_fund_usage: dict = field(default_factory=lambda: {"name": "사모자금의 사용내역", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 2-28
+    get_private_fund_usage: dict = field(default_factory=lambda: {"name": "사모자금의 사용내역", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/prvsrpCptalUseDtls.json"}) # 2-28
 
     # 정기보고서 재무정보 (Regular report financial information)
     # get_single_company_accounts: dict = field(default_factory=lambda: {"name": "단일회사 주요계정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 3-1
