@@ -36,29 +36,31 @@ async def update_corplist(
                 
     return [f"status[{response.status_code}]"]
 
-
-
+    
+    
 # 사용 예시
 if __name__ == "__main__":
+    # uv run -m dart.callers.api1_disclosure_info.api1_4_request_corplist
     import os
     import asyncio
 
-    import httpx
     from dotenv import load_dotenv
     load_dotenv(verbose=False)
 
     async def test():
-        url = "https://opendart.fss.or.kr/api/list.json"
+        base_url = "https://opendart.fss.or.kr/api"
+        endpoint = "/corpCode.xml"
         API_KEY = os.getenv("DART_API_KEY")
         print(API_KEY)
-        async with httpx.AsyncClient() as client:
 
-            result = await update_corplist(
-                client = client,
-                url = url,
-                api_key=API_KEY
-            )
+        results = await update_corplist(
+            base_url = base_url,
+            endpoint = endpoint,
+            api_key = API_KEY,
+        )
 
-        print(result)
+        for result in results:
+            print("---")
+            print(result)
         
     asyncio.run(test())

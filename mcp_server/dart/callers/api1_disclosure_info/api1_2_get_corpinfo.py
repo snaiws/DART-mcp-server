@@ -59,26 +59,29 @@ async def get_corpinfo(
     
 # 사용 예시
 if __name__ == "__main__":
+    # uv run -m dart.callers.api1_disclosure_info.api1_2_get_corpinfo
     import os
     import asyncio
 
-    import httpx
     from dotenv import load_dotenv
     load_dotenv(verbose=False)
 
     async def test():
-        url = "https://opendart.fss.or.kr/api/company.json"
+        base_url = "https://opendart.fss.or.kr/api"
+        endpoint = "/company.json"
         API_KEY = os.getenv("DART_API_KEY")
+        corp_code = "00126380"
         print(API_KEY)
-        async with httpx.AsyncClient() as client:
 
-            result = await get_corpinfo(
-                client = client,
-                url = url,
-                api_key=API_KEY,
-                corp_code="00126380",  # 삼성전자 고유번호
-            )
+        results = await get_corpinfo(
+            base_url = base_url,
+            endpoint = endpoint,
+            api_key = API_KEY,
+            corp_code = corp_code,  # 삼성전자 고유번호
+        )
 
-        print(result)
+        for result in results:
+            print("---")
+            print(result)
         
     asyncio.run(test())

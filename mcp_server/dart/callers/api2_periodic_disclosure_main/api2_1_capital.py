@@ -56,26 +56,37 @@ async def get_capitalstatus(
         result.append(datum)
     return result
 
-
+    
+    
+# 사용 예시
 if __name__ == "__main__":
+    # uv run -m dart.callers.api2_periodic_disclosure_main.api2_1_capital
     import os
     import asyncio
 
-    import httpx
     from dotenv import load_dotenv
     load_dotenv(verbose=False)
-        
+
     async def test():
-        url = "https://opendart.fss.or.kr/api/irdsSttus.json"
+        base_url = "https://opendart.fss.or.kr/api"
+        endpoint = "/irdsSttus.json"
         API_KEY = os.getenv("DART_API_KEY")
-        print(API_KEY)
         corp_code = "00126380"
         bsns_year = "2024"
         reprt_code = "11013"
-        async with httpx.AsyncClient() as client:
+        print(API_KEY)
 
-            result = await get_capitalstatus(client, url, API_KEY, corp_code, bsns_year, reprt_code)
+        results = await get_capitalstatus(
+            base_url = base_url,
+            endpoint = endpoint,
+            api_key = API_KEY,
+            corp_code = corp_code,  # 삼성전자 고유번호
+            bsns_year = bsns_year,
+            reprt_code = reprt_code
+        )
 
-        print(result)
+        for result in results:
+            print("---")
+            print(result)
         
     asyncio.run(test())
