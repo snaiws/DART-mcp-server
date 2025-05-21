@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Docstring_get_merger_decision:
-    docstring = """Get infomation of a company's capital status from it's periodic disclosure in DART system.(증자/감자 현황)
+    docstring = """Provides key information of Decision on Company Merger within the Major Event Report
     
 Args:
     api_key (str): API authentication key - Issued authentication key (40 characters)
