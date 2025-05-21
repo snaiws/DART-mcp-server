@@ -89,7 +89,7 @@ class ApiDefineUnit:
     get_equity_securities_disposal: dict = field(default_factory=lambda: {"name": "타법인 주식 및 출자증권 양도결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/otcprStkInvscrTrfDecsn.json"}) # 5-30
     get_stock_related_bond_acquisition: dict = field(default_factory=lambda: {"name": "주권 관련 사채권 양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/stkrtbdInhDecsn.json"}) # 5-31
     get_stock_related_bond_disposal: dict = field(default_factory=lambda: {"name": "주권 관련 사채권 양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "stkrtbdTrfDecsn.json"}) # 5-32
-    # get_merger_decision: dict = field(default_factory=lambda: {"name": "회사합병 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-33
+      get_merger_decision: dict = field(default_factory=lambda: {"name": "회사합병 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/cmpMgDecsn.json"}) # 5-33
     # get_split_decision: dict = field(default_factory=lambda: {"name": "회사분할 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-34
     # get_split_merger_decision: dict = field(default_factory=lambda: {"name": "회사분할합병 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-35
     # get_stock_exchange_transfer_decision: dict = field(default_factory=lambda: {"name": "주식교환·이전 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-36
