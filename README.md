@@ -78,7 +78,7 @@ uv sync
 1. Claude Desktop 앱을 설치하고 실행합니다.
 2. Claude 메뉴에서 “파일(File)” - "설정(Settings)"을 클릭합니다.
 3. 좌측 메뉴에서 "개발자(Developer)"를 선택하고 "설정 편집(Edit Config)"을 클릭합니다.
-4. 설정 파일이 열리면 다음과 같이 DART-MCP-서버 설정을 추가합니다:
+4. 설정 파일이 열리면 다음내용에서 경로를 수정하여 DART-MCP-서버 설정으로 추가합니다:
     
     ```json
     {
@@ -87,7 +87,7 @@ uv sync
                 "command": "uv",
                 "args": [
                     "--directory",
-                    "C:\\Users\\Snaiws\\code\\Projects\\mcp\\DART-mcp-server\\dart", // 경로 지정 필요
+                    "C:\\Users\\Snaiws\\code\\Projects\\mcp\\DART-mcp-server\\mcp_server",
                     "run",
                     "mcp_server.py"
                 ]
