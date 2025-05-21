@@ -8,7 +8,7 @@ from utils import setup_logger, get_now
 from configs import ConfigDefineTool
 from dart import McpFactory
 
-
+raise
 
 mcp = FastMCP("DART")
 
