@@ -25,7 +25,7 @@ async def get_stock_related_bond_disposal(
     # 후처리
     data = response.json()
     
-    transform1 = transform2 = transform2 = {
+    transform1 = {
         "rcept_no": "접수번호(14자리)",
         "corp_cls": "법인구분",
         "corp_code": "공시대상회사의 고유번호(8자리)",
