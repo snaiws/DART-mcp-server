@@ -92,7 +92,8 @@ class ApiDefineUnit:
     get_merger_decision: dict = field(default_factory=lambda: {"name": "회사합병 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/cmpMgDecsn.json"}) # 5-33
     get_split_decision: dict = field(default_factory=lambda: {"name": "회사분할 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/cmpDvDecsn.json"}) # 5-34
     get_split_merger_decision: dict = field(default_factory=lambda: {"name": "회사분할합병 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/cmpDvmgDecsn.json"}) # 5-35
-    # get_stock_exchange_transfer_decision: dict = field(default_factory=lambda: {"name": "주식교환·이전 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-36
+    get_stock_exchange_transfer_decision: dict = field(default_factory=lambda: {"name": "주식교환·이전 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/stkExtrDecsn.json"}) # 5-36
+
 
     # 증권신고서 주요정보 (Securities registration statement key information)
     # get_equity_securities_registration: dict = field(default_factory=lambda: {"name": "지분증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 6-1

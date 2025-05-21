@@ -4,3 +4,4 @@ from .api5_32_get_stock_related_bond_disposal import get_stock_related_bond_disp
 from .api5_33_get_merger_decision import get_merger_decision
 from .api5_34_get_split_decision import get_split_decision
 from .api5_35_get_split_merger_decision import get_split_merger_decision
+from .api5_36_get_stock_exchange_transfer_decision import get_stock_exchange_transfer_decision
