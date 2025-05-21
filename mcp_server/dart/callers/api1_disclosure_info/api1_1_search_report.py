@@ -30,7 +30,7 @@ async def get_disclosurelist(
     if pblntf_ty:
         params['pblntf_ty'] = pblntf_ty
     if pblntf_detail_ty:
-        pblntf_detail_ty['pblntf_detail_ty'] = pblntf_detail_ty
+        params['pblntf_detail_ty'] = pblntf_detail_ty
     if corp_cls:
         params['corp_cls'] = corp_cls
     if sort:
