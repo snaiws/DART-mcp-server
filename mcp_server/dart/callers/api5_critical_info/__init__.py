@@ -1,1 +1,4 @@
+from .api5_30_get_equity_securities_disposal import get_equity_securities_disposal
+from .api5_31_get_stock_related_bond_acquisition import get_stock_related_bond_acquisition
+from .api5_32_get_stock_related_bond_disposal import get_stock_related_bond_disposal
 from .api5_33_get_merger_decision import get_merger_decision
