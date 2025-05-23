@@ -1,0 +1,8 @@
+{
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": [
+    "mcp_server/tests"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.autoTestDiscoverOnSaveEnabled": true
+}

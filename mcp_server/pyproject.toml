@@ -5,10 +5,18 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "d>=0.2.2",
     "httpx>=0.28.1",
     "lxml>=5.3.2",
     "mcp[cli]==1.6",
     "pandas>=2.2.3",
     "pytest>=8.3.5",
+    "pytest-asyncio>=0.26.0",
+    "pytest-bdd>=8.1.0",
     "python-dotenv>=1.1.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest-cov>=6.1.1",
 ]
