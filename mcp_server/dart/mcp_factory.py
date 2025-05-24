@@ -2,25 +2,21 @@ from typing import Callable
 import inspect
 import traceback
 
+import mcp.types as types
+
 from . import callers
 from . import docstrings
-
+from . import schemas
 
 
 class McpFactory:
     def __init__(self, mcp, apiinfo):
-        """
-        Initialize the factory with module names for functions and docstrings.
-        
-        Args:
-            function_module_name: Name of the module containing the original functions
-            docstring_module_name: Name of the module containing the docstrings
-        """
         # Import modules dynamically
         self.mcp = mcp
         self.apiinfo = apiinfo
         self.function_module = callers
         self.docstring_module = docstrings
+        self.schema_module = schemas
 
 
     def run(self):
