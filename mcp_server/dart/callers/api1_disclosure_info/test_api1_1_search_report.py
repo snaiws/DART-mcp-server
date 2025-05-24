@@ -29,4 +29,4 @@ async def test_get_disclosurelist():
     )
 
     # Then
-    assert results is not None
+    assert isinstance(results, list)
