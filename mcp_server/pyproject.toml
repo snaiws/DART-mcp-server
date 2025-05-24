@@ -11,12 +11,12 @@ dependencies = [
     "mcp[cli]==1.6",
     "pandas>=2.2.3",
     "pytest>=8.3.5",
-    "pytest-asyncio>=0.26.0",
     "pytest-bdd>=8.1.0",
     "python-dotenv>=1.1.0",
 ]
 
 [dependency-groups]
 dev = [
+    "pytest-asyncio>=0.26.0",
     "pytest-cov>=6.1.1",
 ]
