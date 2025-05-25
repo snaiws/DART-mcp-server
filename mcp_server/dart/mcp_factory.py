@@ -26,6 +26,7 @@ class McpFactory:
         self.mcp.list_tools()(self.list_tools)
         self.mcp.call_tool()(self.call_tool)
 
+
     async def list_tools(self) -> list[types.Tool]: # self 조심. 데코레이터
         list_of_tools = [
             types.Tool(
@@ -37,6 +38,7 @@ class McpFactory:
         ]
         return list_of_tools
     
+
     async def call_tool(
         self, name: str, arguments: Any
         ) -> Sequence[types.TextContent | types.ImageContent | types.EmbeddedResource]:
@@ -61,8 +63,19 @@ class McpFactory:
 
             all_args.update(dynamic_args)
 
+            async def dynamic_function(*args, **kwargs):
+                answer = ["[Execution result]"]
+                try:
+                    responses = await function(*args, **kwargs)
+                    for i, response in enumerate(responses):
+                        answer.append(f"result_{i+1} : {response}")
+                except Exception as e:
+                    error_msg = traceback.format_exc()
+                    answer.append(f"error : {error_msg}")
+                
+                return "\n---\n".join(answer)
             
-            result = await function(**all_args)
+            result = await dynamic_function(**all_args)
 
 
 
@@ -79,25 +92,12 @@ class McpFactory:
         return [types.TextContent(type="text", text=result)]
 
 
-    @staticmethod
-    async def dynamic_function(*args, **kwargs):
-        answer = ["[Execution result]"]
-        try:
-            responses = await function(*args, **kwargs)
-            for i, response in enumerate(responses):
-                answer.append(f"result_{i+1} : {response}")
-        except Exception as e:
-            error_msg = traceback.format_exc()
-            answer.append(f"error : {error_msg}")
-        
-        return "\n---\n".join(answer)
-
-
     def _get_matching_docstring(self, function_name: str) -> str:
         # Simple case: direct match by name
         docstring_attr = f"Docstring_{function_name}"
         return getattr(self.docstring_module, docstring_attr).docstring
     
+
     def _get_matching_schema(self, function_name: str) -> Type[BaseModel]:
         # Simple case: direct match by name
         schema_attr = f"Schema_{function_name}"
