@@ -1,1 +1,1 @@
-from .doc2_1_capital import Docstring_get_capitalstatus
+from .doc2_1_get_capitalstatus import Docstring_get_capitalstatus

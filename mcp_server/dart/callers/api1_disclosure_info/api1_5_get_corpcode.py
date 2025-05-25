@@ -3,17 +3,17 @@ import os
 import pandas as pd
 
 
-async def get_corpcode(path_corplist, user_input):
+async def get_corpcode(path_corplist, corp_name):
     if not os.path.exists(path_corplist):
         return ["there is no corp_list file."]
     df = pd.read_xml(path_corplist)
-    search = df[df['corp_name']==user_input]
+    search = df[df['corp_name']==corp_name]
 
     if not search.empty:
         search['corp_code'] = search['corp_code'].map(lambda x: str(x).zfill(8))
         return list(search.T.to_dict().values())
     
-    search = df[df['corp_eng_name']==user_input]
+    search = df[df['corp_eng_name']==corp_name]
     if not search.empty:
         search['corp_code'] = search['corp_code'].map(lambda x: str(x).zfill(8))
         return list(search.T.to_dict().values())
@@ -30,8 +30,8 @@ if __name__ == "__main__":
     async def test():
     # uv run -m dart.callers.api1_disclosure_info.api1_5_search_corpcode
         path_corplist = os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')
-        user_input = "진성전지"
-        res = await get_corpcode(path_corplist, user_input)
+        corp_name = "진성전지"
+        res = await get_corpcode(path_corplist, corp_name)
 
         print(res)
         return res

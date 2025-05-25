@@ -9,7 +9,7 @@ class ApiDefineUnit:
     # 공시정보 (disclosure information)
     get_disclosurelist: dict = field(default_factory=lambda: {"name": "공시검색", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/list.json"}) # 1-1
     get_corpinfo: dict = field(default_factory=lambda: {"name": "기업개황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/company.json"}) # 1-2
-    update_corplist: dict = field(default_factory=lambda: {"name": "고유번호", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/corpCode.xml"}) # 1-4
+    update_corplist: dict = field(default_factory=lambda: {"name": "고유번호", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/corpCode.xml", "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-4
     get_corpcode: dict = field(default_factory=lambda: {"name": "기업코드검색", "base_url": "", "endpoint": "", "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-5 (임의추가)
     get_corp_candidates: dict = field(default_factory=lambda: {"name": "기업코드검색후보", "base_url": "", "endpoint": "", "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-6 (임의추가)
     
@@ -57,7 +57,7 @@ class ApiDefineUnit:
     # get_executive_major_shareholders_reports: dict = field(default_factory=lambda: {"name": "임원, 주요주주 소유보고", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 4-2
 
     # 주요사항보고서 주요정보 (Key issues report information)
-    # get_asset_acquisition_disposal: dict = field(default_factory=lambda: {"name": "자산양수도(기타), 풋백옵션", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-1
+    get_asset_acquisition_disposal: dict = field(default_factory=lambda: {"name": "자산양수도(기타), 풋백옵션", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/astInhtrfEtcPtbkOpt.json"}) # 5-1
     # get_default_occurrence: dict = field(default_factory=lambda: {"name": "부도발생", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-2
     # get_business_suspension: dict = field(default_factory=lambda: {"name": "영업정지", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-3
     # get_rehabilitation_filing: dict = field(default_factory=lambda: {"name": "회생절차 개시신청", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-4

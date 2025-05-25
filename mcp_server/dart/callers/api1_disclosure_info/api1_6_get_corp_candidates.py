@@ -16,14 +16,14 @@ def safe_distance(s1, s2):
     return difflib.SequenceMatcher(None,s1, s2).ratio()
 
 
-async def get_corp_candidates(path_corplist:str, user_input:str, n:int):
+async def get_corp_candidates(path_corplist:str, corp_name:str, n:int):
     if not os.path.exists(path_corplist):
         return ["there is no corp_list file."]
     df = pd.read_xml(path_corplist)
     
     df['dist'] = df.apply(lambda row: max(
-        safe_distance(user_input, row['corp_name']),
-        safe_distance(user_input, row['corp_eng_name'])
+        safe_distance(corp_name, row['corp_name']),
+        safe_distance(corp_name, row['corp_eng_name'])
     ), axis=1)
 
     search = df.sort_values(by='dist', ascending=False)
@@ -40,9 +40,9 @@ if __name__ == "__main__":
     async def test():
     # uv run -m dart.callers.api1_disclosure_info.api1_6_search_candidates
         path_corplist = os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')
-        user_input = "진성전지"
+        corp_name = "진성전지"
         n = 5
-        res = await get_corp_candidates(path_corplist, user_input, n)
+        res = await get_corp_candidates(path_corplist, corp_name, n)
 
         print(res)
         return res

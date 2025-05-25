@@ -1,1 +1,1 @@
-from .api2_1_capital import get_capitalstatus
+from .api2_1_get_capitalstatus import get_capitalstatus
