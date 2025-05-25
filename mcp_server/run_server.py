@@ -1,7 +1,9 @@
 import os
+import asyncio
 import traceback
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server import Server
+from mcp.server.stdio import stdio_server
 
 from apimanager import HttpxAPIManager, APIServerError
 from utils import setup_logger, get_now
@@ -10,7 +12,7 @@ from dart import McpFactory
 
 
 
-mcp = FastMCP("DART")
+app = Server("DART")
 
 
 # 환경변수, 상수
@@ -48,10 +50,17 @@ client = HttpxAPIManager(
     exception_server_error = Dart_server_exception
     )
 
-factory = McpFactory(mcp, apiinfo)
+factory = McpFactory(app, apiinfo)
 
 factory.run()
 
+
+
+async def run_stdio():
+    async with stdio_server() as (read_stream, write_stream):
+        await app.run(read_stream, write_stream, app.create_initialization_options())
+
+
 if __name__ == "__main__":
     # Initialize and run the server
-    mcp.run(transport='stdio')
+    asyncio.run(run_stdio())

@@ -1,1 +1,1 @@
-from .schema2_1_capital import Schema_get_capitalstatus
+from .schema2_1_get_capitalstatus import Schema_get_capitalstatus
