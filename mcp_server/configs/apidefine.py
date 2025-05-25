@@ -76,16 +76,16 @@ class ApiDefineUnit:
     # get_bond_with_warrants_issuance: dict = field(default_factory=lambda: {"name": "신주인수권부사채권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-17
     # get_exchangeable_bond_issuance: dict = field(default_factory=lambda: {"name": "교환사채권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-18
     # get_creditor_management_suspension: dict = field(default_factory=lambda: {"name": "채권은행 등의 관리절차 중단", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-19
-    # get_contingent_capital_securities_issuance: dict = field(default_factory=lambda: {"name": "상각형 조건부자본증권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-20
-    # get_treasury_stock_acquisition: dict = field(default_factory=lambda: {"name": "자기주식 취득 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-21
-    # get_treasury_stock_disposal: dict = field(default_factory=lambda: {"name": "자기주식 처분 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-22
-    # get_treasury_stock_trust_contract: dict = field(default_factory=lambda: {"name": "자기주식취득 신탁계약 체결 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-23
-    # get_treasury_stock_trust_termination: dict = field(default_factory=lambda: {"name": "자기주식취득 신탁계약 해지 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-24
-    # get_business_transfer_acquisition: dict = field(default_factory=lambda: {"name": "영업양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-25
-    # get_business_transfer_disposal: dict = field(default_factory=lambda: {"name": "영업양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-26
-    # get_tangible_asset_acquisition: dict = field(default_factory=lambda: {"name": "유형자산 양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-27
-    # get_tangible_asset_disposal: dict = field(default_factory=lambda: {"name": "유형자산 양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-28
-    # get_equity_securities_acquisition: dict = field(default_factory=lambda: {"name": "타법인 주식 및 출자증권 양수결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-29
+    get_contingent_capital_securities_issuance: dict = field(default_factory=lambda: {"name": "상각형 조건부자본증권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/wdCocobdIsDecsn.json"}) # 5-20
+    get_treasury_stock_acquisition: dict = field(default_factory=lambda: {"name": "자기주식 취득 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tsstkAqDecsn.json"}) # 5-21
+    get_treasury_stock_disposal: dict = field(default_factory=lambda: {"name": "자기주식 처분 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tsstkDpDecsn.json"}) # 5-22
+    get_treasury_stock_trust_contract: dict = field(default_factory=lambda: {"name": "자기주식취득 신탁계약 체결 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tsstkAqTrctrCnsDecsn.json"}) # 5-23
+    get_treasury_stock_trust_termination: dict = field(default_factory=lambda: {"name": "자기주식취득 신탁계약 해지 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tsstkAqTrctrCcDecsn.json"}) # 5-24
+    get_business_transfer_acquisition: dict = field(default_factory=lambda: {"name": "영업양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/bsnInhDecsn.json"}) # 5-25
+    get_business_transfer_disposal: dict = field(default_factory=lambda: {"name": "영업양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/bsnTrfDecsn.json"}) # 5-26
+    get_tangible_asset_acquisition: dict = field(default_factory=lambda: {"name": "유형자산 양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tgastInhDecsn.json"}) # 5-27
+    get_tangible_asset_disposal: dict = field(default_factory=lambda: {"name": "유형자산 양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tgastTrfDecsn.json"}) # 5-28
+    get_equity_securities_acquisition: dict = field(default_factory=lambda: {"name": "타법인 주식 및 출자증권 양수결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/otcprStkInvscrInhDecsn.json"}) # 5-29
     get_equity_securities_disposal: dict = field(default_factory=lambda: {"name": "타법인 주식 및 출자증권 양도결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/otcprStkInvscrTrfDecsn.json"}) # 5-30
     get_stock_related_bond_acquisition: dict = field(default_factory=lambda: {"name": "주권 관련 사채권 양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/stkrtbdInhDecsn.json"}) # 5-31
     get_stock_related_bond_disposal: dict = field(default_factory=lambda: {"name": "주권 관련 사채권 양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "stkrtbdTrfDecsn.json"}) # 5-32
