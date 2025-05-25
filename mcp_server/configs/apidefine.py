@@ -81,7 +81,7 @@ class ApiDefineUnit:
     # get_treasury_stock_disposal: dict = field(default_factory=lambda: {"name": "자기주식 처분 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-22
     # get_treasury_stock_trust_contract: dict = field(default_factory=lambda: {"name": "자기주식취득 신탁계약 체결 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-23
     # get_treasury_stock_trust_termination: dict = field(default_factory=lambda: {"name": "자기주식취득 신탁계약 해지 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-24
-    # get_business_transfer_acquisition: dict = field(default_factory=lambda: {"name": "영업양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-25
+    get_business_transfer_acquisition: dict = field(default_factory=lambda: {"name": "영업양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/bsnInhDecsn.json"}) # 5-25
     get_business_transfer_disposal: dict = field(default_factory=lambda: {"name": "영업양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/bsnTrfDecsn.json"}) # 5-26
     get_tangible_asset_acquisition: dict = field(default_factory=lambda: {"name": "유형자산 양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tgastInhDecsn.json"}) # 5-27
     get_tangible_asset_disposal: dict = field(default_factory=lambda: {"name": "유형자산 양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tgastTrfDecsn.json"}) # 5-28
