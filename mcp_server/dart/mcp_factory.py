@@ -1,6 +1,6 @@
 from typing import Any, Type
 from collections.abc import Sequence
-from functools import partial
+import logging
 import inspect
 import traceback
 
@@ -11,6 +11,7 @@ from . import callers
 from . import docstrings
 from . import schemas
 
+logger = logging.getLogger()
 
 class McpFactory:
     def __init__(self, mcp, apiinfo):
@@ -27,7 +28,7 @@ class McpFactory:
         self.mcp.call_tool()(self.call_tool)
 
 
-    async def list_tools(self) -> list[types.Tool]: # self 조심. 데코레이터
+    async def list_tools(self) -> list[types.Tool]: 
         list_of_tools = [
             types.Tool(
                 name = fn_name,

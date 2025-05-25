@@ -1,5 +1,6 @@
 from .env import EnvDefineUnit
 from .apidefine import ApiDefineUnit
+from .usecase import UsecaseDefineUnit
 
 from . import terminology_alert
 
@@ -14,6 +15,7 @@ class ConfigDefineTool:
             # Initialize instance attributes    
             cls._instance.env = None
             cls._instance.api = None
+            cls._instance.usecase = None
         return cls._instance
     
     def get_env(self):
@@ -29,6 +31,13 @@ class ConfigDefineTool:
         if self.api is None:
             self.api = ApiDefineUnit()
         return self.api
+    
+    def get_usecase(self):
+        if self.usecase is None:
+            self.usecase = UsecaseDefineUnit()
+        return self.usecase
+
+
 
 if __name__ == "__main__":
     tool = ConfigDefineTool()

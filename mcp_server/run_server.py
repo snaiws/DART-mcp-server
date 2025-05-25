@@ -1,5 +1,6 @@
 import os
 import asyncio
+import argparse
 import traceback
 
 from mcp.server import Server
@@ -11,6 +12,11 @@ from configs import ConfigDefineTool
 from dart import McpFactory
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--usecase', '-t', type=str, default='-', 
+                   help='유즈케이스 (기본값: "모든 툴 로드")')
+args = parser.parse_args()
+usecase_key = args.usecase
 
 app = Server("DART")
 
@@ -20,6 +26,12 @@ config = ConfigDefineTool()
 env = config.get_env()
 mapping = config.get_mapping()
 apiinfo = config.get_api().to_dict()
+usecases = config.get_usecase().to_dict()
+
+usecase = usecases.get(usecase_key, [])
+if usecase:
+    apiinfo = {key: apiinfo[key] for key in usecase if key in apiinfo}
+
 
 # 내 문서에 mcp 서버용 디렉토리 생성(회사리스트, 로그)
 os.makedirs(env.PATH_BASE, exist_ok=True)
@@ -27,6 +39,8 @@ os.makedirs(env.PATH_BASE, exist_ok=True)
 # 로거 선언
 now = get_now(env.REGION, form="%Y%m%d%H%M%S")
 logger = setup_logger(env.PATH_BASE)
+
+logger.info(f"server started, usecase = {usecase_key}")
 
 # API 클라이언트 선언
 class Dart_server_exception(APIServerError):
