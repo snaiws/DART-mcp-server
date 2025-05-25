@@ -78,7 +78,7 @@ class ApiDefineUnit:
     # get_creditor_management_suspension: dict = field(default_factory=lambda: {"name": "채권은행 등의 관리절차 중단", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-19
     # get_contingent_capital_securities_issuance: dict = field(default_factory=lambda: {"name": "상각형 조건부자본증권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-20
     # get_treasury_stock_acquisition: dict = field(default_factory=lambda: {"name": "자기주식 취득 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-21
-    # get_treasury_stock_disposal: dict = field(default_factory=lambda: {"name": "자기주식 처분 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-22
+    get_treasury_stock_disposal: dict = field(default_factory=lambda: {"name": "자기주식 처분 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tsstkDpDecsn.json"}) # 5-22
     get_treasury_stock_trust_contract: dict = field(default_factory=lambda: {"name": "자기주식취득 신탁계약 체결 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tsstkAqTrctrCnsDecsn.json"}) # 5-23
     get_treasury_stock_trust_termination: dict = field(default_factory=lambda: {"name": "자기주식취득 신탁계약 해지 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tsstkAqTrctrCcDecsn.json"}) # 5-24
     get_business_transfer_acquisition: dict = field(default_factory=lambda: {"name": "영업양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/bsnInhDecsn.json"}) # 5-25
