@@ -13,13 +13,14 @@ async def update_corplist(
     )->list:
 
     # API 요청 URL
-    endpoint = endpoint.format(api_key=api_key)
-    path_zip_corplist = "CORPCODE.xml"
+    params = {
+        "crtfc_key":api_key
+    }
 
     client = HttpxAPIManager(base_url)
 
     # 클라이언트로 API 요청 보내기
-    response = await client.get(endpoint)
+    response = await client.get(endpoint, params=params)
     
     # 응답 확인
     if response.status_code == 200:
@@ -28,7 +29,7 @@ async def update_corplist(
         
         # 압축 해제
         with zipfile.ZipFile(zip_file) as z:
-            xml_content = z.read(path_zip_corplist)
+            xml_content = z.read(path_corplist)
             
             # XML 파일 저장 (선택사항)
             with open(path_corplist, 'wb') as f:
@@ -51,12 +52,14 @@ if __name__ == "__main__":
         base_url = "https://opendart.fss.or.kr/api"
         endpoint = "/corpCode.xml"
         API_KEY = os.getenv("DART_API_KEY")
+        path_corplist = "CORPCODE.xml"
         print(API_KEY)
 
         results = await update_corplist(
             base_url = base_url,
             endpoint = endpoint,
             api_key = API_KEY,
+            path_corplist = path_corplist
         )
 
         for result in results:
