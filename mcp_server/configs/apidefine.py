@@ -9,7 +9,7 @@ class ApiDefineUnit:
     # 공시정보 (disclosure information)
     get_disclosurelist: dict = field(default_factory=lambda: {"name": "공시검색", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/list.json"}) # 1-1
     get_corpinfo: dict = field(default_factory=lambda: {"name": "기업개황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/company.json"}) # 1-2
-    update_corplist: dict = field(default_factory=lambda: {"name": "고유번호", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/corpCode.xml?crtfc_key={api_key}"}) # 1-4
+    update_corplist: dict = field(default_factory=lambda: {"name": "고유번호", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/corpCode.xml"}) # 1-4
     get_corpcode: dict = field(default_factory=lambda: {"name": "기업코드검색", "base_url": "", "endpoint": "", "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-5 (임의추가)
     get_corp_candidates: dict = field(default_factory=lambda: {"name": "기업코드검색후보", "base_url": "", "endpoint": "", "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-6 (임의추가)
     
@@ -83,9 +83,9 @@ class ApiDefineUnit:
     # get_treasury_stock_trust_termination: dict = field(default_factory=lambda: {"name": "자기주식취득 신탁계약 해지 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-24
     # get_business_transfer_acquisition: dict = field(default_factory=lambda: {"name": "영업양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-25
     get_business_transfer_disposal: dict = field(default_factory=lambda: {"name": "영업양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/bsnTrfDecsn.json"}) # 5-26
-    # get_tangible_asset_acquisition: dict = field(default_factory=lambda: {"name": "유형자산 양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-27
-    # get_tangible_asset_disposal: dict = field(default_factory=lambda: {"name": "유형자산 양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-28
-    # get_equity_securities_acquisition: dict = field(default_factory=lambda: {"name": "타법인 주식 및 출자증권 양수결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-29
+    get_tangible_asset_acquisition: dict = field(default_factory=lambda: {"name": "유형자산 양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tgastInhDecsn.json"}) # 5-27
+    get_tangible_asset_disposal: dict = field(default_factory=lambda: {"name": "유형자산 양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tgastTrfDecsn.json"}) # 5-28
+    get_equity_securities_acquisition: dict = field(default_factory=lambda: {"name": "타법인 주식 및 출자증권 양수결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/otcprStkInvscrInhDecsn.json"}) # 5-29
     get_equity_securities_disposal: dict = field(default_factory=lambda: {"name": "타법인 주식 및 출자증권 양도결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/otcprStkInvscrTrfDecsn.json"}) # 5-30
     get_stock_related_bond_acquisition: dict = field(default_factory=lambda: {"name": "주권 관련 사채권 양수 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/stkrtbdInhDecsn.json"}) # 5-31
     get_stock_related_bond_disposal: dict = field(default_factory=lambda: {"name": "주권 관련 사채권 양도 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "stkrtbdTrfDecsn.json"}) # 5-32
