@@ -74,7 +74,7 @@ class ApiDefineUnit:
     # get_overseas_delisting: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장폐지", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-15
     # get_convertible_bond_issuance: dict = field(default_factory=lambda: {"name": "전환사채권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-16
     # get_bond_with_warrants_issuance: dict = field(default_factory=lambda: {"name": "신주인수권부사채권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-17
-    # get_exchangeable_bond_issuance: dict = field(default_factory=lambda: {"name": "교환사채권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-18
+    get_exchangeable_bond_issuance: dict = field(default_factory=lambda: {"name": "교환사채권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/exbdIsDecsn.json"}) # 5-18
     # get_creditor_management_suspension: dict = field(default_factory=lambda: {"name": "채권은행 등의 관리절차 중단", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-19
     get_contingent_capital_securities_issuance: dict = field(default_factory=lambda: {"name": "상각형 조건부자본증권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/wdCocobdIsDecsn.json"}) # 5-20
     get_treasury_stock_acquisition: dict = field(default_factory=lambda: {"name": "자기주식 취득 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tsstkAqDecsn.json"}) # 5-21
