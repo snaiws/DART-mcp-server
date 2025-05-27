@@ -29,7 +29,7 @@ async def update_corplist(
         
         # 압축 해제
         with zipfile.ZipFile(zip_file) as z:
-            xml_content = z.read(path_corplist)
+            xml_content = z.read("CORPCODE.xml")
             
             # XML 파일 저장 (선택사항)
             with open(path_corplist, 'wb') as f:
