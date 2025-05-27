@@ -4,27 +4,30 @@ async def get_disclosurelist(
     base_url:str,
     endpoint:str,
     api_key:str,
-    corp_code:str,
-    bgn_de:str,
-    end_de:str,
-    last_reprt_at:str='N',
+    corp_code:str=None,
+    bgn_de:str=None,
+    end_de:str=None,
+    last_reprt_at:str=None,
     pblntf_ty:str=None,
     pblntf_detail_ty:str=None,
     corp_cls:str=None,
-    sort:str='date',
-    sort_mth:str='desc',
-    page_no:int=1,
-    page_count:int=10
+    sort:str=None,
+    sort_mth:str=None,
+    page_no:int=None,
+    page_count:int=None
     ) -> list:
     # 요청 파라미터 설정
     params = {
-        'crtfc_key': api_key,
-        'corp_code' : corp_code,
-        'bgn_de' : bgn_de,
-        'end_de' : end_de
+        'crtfc_key': api_key
     }
     
     # 선택적 파라미터 추가
+    if corp_code:
+        params['corp_code'] = corp_code
+    if bgn_de:
+        params['bgn_de'] = bgn_de
+    if end_de:
+        params['end_de'] = end_de
     if last_reprt_at:
         params['last_reprt_at'] = last_reprt_at
     if pblntf_ty:
