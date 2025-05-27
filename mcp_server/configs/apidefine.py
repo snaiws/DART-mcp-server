@@ -9,10 +9,10 @@ class ApiDefineUnit:
     # 공시정보 (disclosure information)
     get_disclosurelist: dict = field(default_factory=lambda: {"name": "공시검색", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/list.json", "api_key": os.getenv('DART_API_KEY')}) # 1-1
     get_corpinfo: dict = field(default_factory=lambda: {"name": "기업개황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/company.json", "api_key": os.getenv('DART_API_KEY')}) # 1-2
-    get_disclosure: dict = field(default_factory=lambda: {"name": "공시서류원본파일", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "document.xml", "api_key": os.getenv('DART_API_KEY'), "path_disclosures":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'disclosures')}) # 1-3
-    update_corplist: dict = field(default_factory=lambda: {"name": "고유번호", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/corpCode.xml", "api_key": os.getenv('DART_API_KEY'), "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-4
-    get_corpcode: dict = field(default_factory=lambda: {"name": "기업코드검색", "base_url": "", "endpoint": "", "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-5 (임의추가)
-    get_corp_candidates: dict = field(default_factory=lambda: {"name": "기업코드검색후보", "base_url": "", "endpoint": "", "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-6 (임의추가)
+    get_disclosure: dict = field(default_factory=lambda: {"name": "공시서류원본파일", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "document.xml", "api_key": os.getenv('DART_API_KEY'), "path_disclosures":os.path.join('.','data', 'mcp', 'DART', 'disclosures')}) # 1-3
+    update_corplist: dict = field(default_factory=lambda: {"name": "고유번호", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/corpCode.xml", "api_key": os.getenv('DART_API_KEY'), "path_base":os.path.join('.','data', 'mcp', 'DART')}) # 1-4
+    get_corpcode: dict = field(default_factory=lambda: {"name": "기업코드검색", "base_url": "", "endpoint": "", "path_corplist":os.path.join('.','data', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-5 (임의추가)
+    get_corp_candidates: dict = field(default_factory=lambda: {"name": "기업코드검색후보", "base_url": "", "endpoint": "", "path_corplist":os.path.join('.','data', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-6 (임의추가)
     
     # 정기보고서 주요정보 (Regular report key information)
     get_capitalstatus: dict = field(default_factory=lambda: {"name": "증자(감자) 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/irdsSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-1
@@ -47,7 +47,7 @@ class ApiDefineUnit:
     # 정기보고서 재무정보 (Regular report financial information)
     # get_single_company_accounts: dict = field(default_factory=lambda: {"name": "단일회사 주요계정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-1
     # get_multi_company_accounts: dict = field(default_factory=lambda: {"name": "다중회사 주요계정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-2
-    get_xbrl_financial_statements: dict = field(default_factory=lambda: {"name": "재무제표 원본파일(XBRL)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttXbrl.xml", "api_key": os.getenv('DART_API_KEY'), "path_finstats":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'finstats')}) # 3-3
+    get_xbrl_financial_statements: dict = field(default_factory=lambda: {"name": "재무제표 원본파일(XBRL)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttXbrl.xml", "api_key": os.getenv('DART_API_KEY'), "path_finstats":os.path.join('.','data', 'mcp', 'DART', 'finstats')}) # 3-3
     # get_complete_financial_statements: dict = field(default_factory=lambda: {"name": "단일회사 전체 재무제표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-4
     # get_xbrl_taxonomy_format: dict = field(default_factory=lambda: {"name": "XBRL택사노미재무제표양식", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-5
     get_single_company_key_indicators: dict = field(default_factory=lambda: {"name": "단일회사 주요 재무지표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttSinglIndx.json", "api_key": os.getenv('DART_API_KEY')}) # 3-6
