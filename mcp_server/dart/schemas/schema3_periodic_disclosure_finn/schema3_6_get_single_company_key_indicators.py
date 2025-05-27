@@ -1,9 +1,6 @@
 from pydantic import BaseModel, Field
 
 class Schema_get_single_company_key_indicators(BaseModel):
-   api_key: str = Field(
-       description="API authentication key - Issued authentication key (40 characters)"
-   )
    corp_code: str = Field(
        description="Unique code - Unique identification code of the company subject to disclosure (8 characters) ※ Refer to Development Guide > Disclosure Information > Unique Number"
    )
