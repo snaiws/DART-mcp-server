@@ -1,9 +1,6 @@
 from pydantic import BaseModel, Field
 
 class Schema_get_treasury_stock_trust_termination(BaseModel):
-   api_key: str = Field(
-       description="API authentication key - Issued authentication key (40 characters)"
-   )
    corp_code: str = Field(
        description="Unique code - Unique identification code of the company subject to disclosure (8 characters)"
    )

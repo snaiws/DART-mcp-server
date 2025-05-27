@@ -1,5 +1,6 @@
 from .doc1_1_get_disclosurelist import Docstring_get_disclosurelist
 from .doc1_2_get_corpinfo import Docstring_get_corpinfo
+from .doc1_3_get_disclosure import Docstring_get_disclosure
 from .doc1_4_update_corplist import Docstring_update_corplist
 from .doc1_5_get_corpcode import Docstring_get_corpcode
 from .doc1_6_get_corp_candidates import Docstring_get_corp_candidates

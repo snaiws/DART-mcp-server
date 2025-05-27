@@ -89,8 +89,11 @@ uv sync
                     "--directory",
                     "C:\\Users\\Snaiws\\code\\Projects\\mcp\\DART-mcp-server\\mcp_server",
                     "run",
-                    "mcp_server.py"
-                ]
+                    "run_server.py"
+                ],
+                "env":{
+                    "DART_API_KEY" : "your-dart-api-key"
+                }
             }
         }
     }
