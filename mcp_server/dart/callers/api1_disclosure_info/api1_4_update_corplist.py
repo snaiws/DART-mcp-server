@@ -1,3 +1,4 @@
+import os
 import io
 import zipfile
 
@@ -9,13 +10,16 @@ async def update_corplist(
     base_url:str,
     endpoint:str,
     api_key:str, 
-    path_corplist:str
+    path_base:str
     )->list:
 
     # API 요청 URL
     params = {
         "crtfc_key":api_key
     }
+    os.makedirs(path_base, exist_ok=True)
+    filename = "CORPCODE.xml"
+    path_corplist = os.path.join(path_base, filename)
 
     client = HttpxAPIManager(base_url)
 
@@ -29,7 +33,7 @@ async def update_corplist(
         
         # 압축 해제
         with zipfile.ZipFile(zip_file) as z:
-            xml_content = z.read(path_corplist)
+            xml_content = z.read(filename)
             
             # XML 파일 저장 (선택사항)
             with open(path_corplist, 'wb') as f:

@@ -20,8 +20,8 @@ async def get_disclosure(
         "crtfc_key":api_key,
         "rcept_no":rcept_no,
     }
-    path_disclosure = os.path.join(path_disclosures, corp_code, f"{rcept_no}.xml")
-    os.makedirs(path_disclosure, exist_ok=True)
+    path_disclosure_corp = os.path.join(path_disclosures, corp_code)
+    os.makedirs(path_disclosure_corp, exist_ok=True)
 
     client = HttpxAPIManager(base_url)
 
@@ -34,10 +34,9 @@ async def get_disclosure(
         zip_file = io.BytesIO(response.content)
         # 압축 해제
         with zipfile.ZipFile(zip_file) as z:
-            print("압축파일 내 파일 목록:")
-            for file_info in z.filelist:
-                xml_content = z.read(file_info.filename)
+            xml_content = z.read(f"{rcept_no}.xml")
             
+            path_disclosure = os.path.join(path_disclosure_corp, f"{rcept_no}.xml")
             # XML 파일 저장 (선택사항)
             with open(path_disclosure, 'wb') as f:
                 f.write(xml_content)

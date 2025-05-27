@@ -1,0 +1,30 @@
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS uv
+
+WORKDIR /app
+
+ENV UV_COMPILE_BYTECODE=1
+ENV UV_LINK_MODE=copy
+
+COPY mcp_server/uv.lock mcp_server/pyproject.toml /app/
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-install-project --no-dev --no-editable
+
+COPY ./mcp_server /app/mcp_server
+COPY README.md ./README.md
+COPY LICENSE LICENSE
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-dev --no-editable
+
+FROM python:3.12-slim-bookworm
+
+WORKDIR /app
+ 
+COPY --from=uv --chown=app:app /app/.venv /app/.venv
+COPY --from=uv /app/mcp_server /app/mcp_server
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+ENV PYTHONPATH="/app/mcp_server:$PYTHONPATH"
+
+ENTRYPOINT ["python", "-m", "mcp_server"]
+CMD []
