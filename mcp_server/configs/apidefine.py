@@ -50,7 +50,7 @@ class ApiDefineUnit:
     # get_xbrl_financial_statements: dict = field(default_factory=lambda: {"name": "재무제표 원본파일(XBRL)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 3-3
     # get_complete_financial_statements: dict = field(default_factory=lambda: {"name": "단일회사 전체 재무제표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 3-4
     # get_xbrl_taxonomy_format: dict = field(default_factory=lambda: {"name": "XBRL택사노미재무제표양식", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 3-5
-    # get_single_company_key_indicators: dict = field(default_factory=lambda: {"name": "단일회사 주요 재무지표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 3-6
+    get_single_company_key_indicators: dict = field(default_factory=lambda: {"name": "단일회사 주요 재무지표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttSinglIndx.json"}) # 3-6
     # get_multi_company_key_indicators: dict = field(default_factory=lambda: {"name": "다중회사 주요 재무지표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 3-7
 
     # 지분공시 종합정보 (Comprehensive equity disclosure information)

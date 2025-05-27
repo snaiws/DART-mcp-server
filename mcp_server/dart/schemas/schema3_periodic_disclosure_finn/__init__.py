@@ -1,0 +1,1 @@
+from .schema3_6_get_single_company_key_indicators import Schema_get_single_company_key_indicators
