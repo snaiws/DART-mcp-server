@@ -1,1 +1,2 @@
+from .doc3_3_get_xbrl_financial_statements import Docstring_get_xbrl_financial_statements
 from .doc3_6_get_single_company_key_indicators import Docstring_get_single_company_key_indicators

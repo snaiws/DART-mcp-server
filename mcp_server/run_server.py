@@ -49,13 +49,16 @@ class Dart_server_exception(APIServerError):
 
 
     def is_server_error(response):
-        if response.json().get('status'):
-            status = response.json()['status']
-            if status == "000":
-                return False
-            else:
-                return True
-                
+
+        try:
+            if response.json().get('status'):
+                status = response.json()['status']
+                if status == "000":
+                    return False
+                else:
+                    return True
+        except:
+            return False
 client = HttpxAPIManager(
     env.BASE_URL, 
     timeout = env.CLIENT_MAX_PATIENT, 
