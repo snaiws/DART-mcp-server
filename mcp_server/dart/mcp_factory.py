@@ -1,95 +1,105 @@
-from typing import Callable
+from typing import Any, Type
+from collections.abc import Sequence
+import logging
 import inspect
 import traceback
 
+import mcp.types as types
+from pydantic import ValidationError, BaseModel
+
 from . import callers
 from . import docstrings
+from . import schemas
 
-
+logger = logging.getLogger()
 
 class McpFactory:
     def __init__(self, mcp, apiinfo):
-        """
-        Initialize the factory with module names for functions and docstrings.
-        
-        Args:
-            function_module_name: Name of the module containing the original functions
-            docstring_module_name: Name of the module containing the docstrings
-        """
         # Import modules dynamically
         self.mcp = mcp
         self.apiinfo = apiinfo
         self.function_module = callers
         self.docstring_module = docstrings
+        self.schema_module = schemas
 
 
     def run(self):
-        for apiname in self.apiinfo:
-            self.create_function(function_name = apiname, params = self.apiinfo[apiname])
+        self.mcp.list_tools()(self.list_tools)
+        self.mcp.call_tool()(self.call_tool)
 
 
-    def create_function(self, function_name: str, params:dict) -> Callable:
-        
-        # Get original function
-        function = getattr(callers, function_name)
-        # Get matching docstring
-        docstring = self._get_matching_docstring(function_name)
-        
-        
-        # 새로운 시그니처 생성 (고정된 파라미터는 제외)
-        signature = inspect.signature(function)
-        valid_params = set(signature.parameters.keys())
+    async def list_tools(self) -> list[types.Tool]: 
+        list_of_tools = [
+            types.Tool(
+                name = fn_name,
+                description = self._get_matching_docstring(fn_name),
+                inputSchema = self._get_matching_schema(fn_name).model_json_schema()
+            )
+            for fn_name in self.apiinfo
+        ]
+        return list_of_tools
+    
 
-        # 함수 정의
-        async def dynamic_function(*args, **kwargs):
-            answer = ["[Execution result]"]
-            try:
-                # 사용자 제공 kwargs에 고정된 params 값을 추가 (사용자 값이 우선)
-                merged_kwargs = {}
-                
-                # params 딕셔너리에서 유효한 파라미터만 포함
-                for key, value in params.items():
-                    if key in valid_params:
-                        merged_kwargs[key] = value
+    async def call_tool(
+        self, name: str, arguments: Any
+        ) -> Sequence[types.TextContent | types.ImageContent | types.EmbeddedResource]:
 
-                kwargs.update(merged_kwargs)
+        if arguments is None:
+            arguments = {}
 
-                responses = await function(*args, **kwargs)
-                for i, response in enumerate(responses):
-                    answer.append(f"result_{i+1} : {response}")
-            except Exception as e:
-                error_msg = traceback.format_exc()
-                answer.append(f"error : {error_msg}")
+        result = ""
+
+        try:
+            function = getattr(self.function_module, name)
             
-            return "\n---\n".join(answer)
+            dynamic_args = self._get_matching_schema(name)(**arguments)
+            dynamic_args = dict(dynamic_args)
+
+            static_args = self.apiinfo[name]
+            sig = inspect.signature(function)
+            all_args = {}
+            for param_name in sig.parameters:
+                if param_name in static_args:
+                    all_args[param_name] = static_args[param_name]
+
+            all_args.update(dynamic_args)
+
+            async def dynamic_function(*args, **kwargs):
+                answer = ["[Execution result]"]
+                try:
+                    responses = await function(*args, **kwargs)
+                    for i, response in enumerate(responses):
+                        answer.append(f"result_{i+1} : {response}")
+                except Exception as e:
+                    error_msg = traceback.format_exc()
+                    answer.append(f"error : {error_msg}")
+                
+                return "\n---\n".join(answer)
+            
+            result = await dynamic_function(**all_args)
+
+
+
+        except ValidationError as e:
+            await self.mcp.request_context.session.send_log_message(
+                "error", "Failed to validate input provided by LLM: " + str(e)
+            )
+            return [
+                types.TextContent(
+                    type="text", text=f"ERROR: You provided invalid Tool inputs: {e}"
+                )
+            ]
         
-        # 함수 속성 설정
-        dynamic_function.__name__ = function_name
-        dynamic_function.__doc__ = docstring
-        dynamic_function.__signature__ = signature
-        
-        # mcp.tool() 데코레이터 적용
-        wrapped_function = self.mcp.tool()(dynamic_function)
-        
-        # 데코레이터 적용 후에도 원래 이름 유지
-        wrapped_function.__name__ = function_name
-        wrapped_function.__doc__ = docstring
-        wrapped_function.__signature__ = signature
-        
-        return wrapped_function
+        return [types.TextContent(type="text", text=result)]
 
 
     def _get_matching_docstring(self, function_name: str) -> str:
-        """
-        Find the appropriate docstring based on function name and parameters.
-        
-        Args:
-            function_name: Name of the function to match
-            parameters: Parameters that might affect which docstring to use
-            
-        Returns:
-            The matching docstring
-        """
         # Simple case: direct match by name
         docstring_attr = f"Docstring_{function_name}"
-        return getattr(docstrings, docstring_attr).docstring
+        return getattr(self.docstring_module, docstring_attr).docstring
+    
+
+    def _get_matching_schema(self, function_name: str) -> Type[BaseModel]:
+        # Simple case: direct match by name
+        schema_attr = f"Schema_{function_name}"
+        return getattr(self.schema_module, schema_attr)
