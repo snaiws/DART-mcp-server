@@ -62,7 +62,7 @@ class ApiDefineUnit:
     # get_business_suspension: dict = field(default_factory=lambda: {"name": "영업정지", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-3
     # get_rehabilitation_filing: dict = field(default_factory=lambda: {"name": "회생절차 개시신청", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-4
     # get_dissolution_event: dict = field(default_factory=lambda: {"name": "해산사유 발생", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-5
-    # get_paid_capital_increase: dict = field(default_factory=lambda: {"name": "유상증자 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-6
+    get_paid_capital_increase: dict = field(default_factory=lambda: {"name": "유상증자 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/piicDecsn.json"}) # 5-6
     # get_free_capital_increase: dict = field(default_factory=lambda: {"name": "무상증자 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-7
     # get_mixed_capital_increase: dict = field(default_factory=lambda: {"name": "유무상증자 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-8
     # get_capital_reduction: dict = field(default_factory=lambda: {"name": "감자 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": ""}) # 5-9
