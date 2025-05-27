@@ -9,6 +9,7 @@ class ApiDefineUnit:
     # 공시정보 (disclosure information)
     get_disclosurelist: dict = field(default_factory=lambda: {"name": "공시검색", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/list.json"}) # 1-1
     get_corpinfo: dict = field(default_factory=lambda: {"name": "기업개황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/company.json"}) # 1-2
+    get_disclosure: dict = field(default_factory=lambda: {"name": "공시서류원본파일", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "document.xml", "path_disclosures":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'disclosures')}) # 1-3
     update_corplist: dict = field(default_factory=lambda: {"name": "고유번호", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/corpCode.xml", "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-4
     get_corpcode: dict = field(default_factory=lambda: {"name": "기업코드검색", "base_url": "", "endpoint": "", "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-5 (임의추가)
     get_corp_candidates: dict = field(default_factory=lambda: {"name": "기업코드검색후보", "base_url": "", "endpoint": "", "path_corplist":os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART', 'CORPCODE.xml')}) # 1-6 (임의추가)
