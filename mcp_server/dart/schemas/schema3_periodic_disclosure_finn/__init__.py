@@ -1,2 +1,3 @@
 from .schema3_3_get_xbrl_financial_statements import Schema_get_xbrl_financial_statements
+from .schema3_5_get_xbrl_taxonomy_format import Schema_get_xbrl_taxonomy_format
 from .schema3_6_get_single_company_key_indicators import Schema_get_single_company_key_indicators
