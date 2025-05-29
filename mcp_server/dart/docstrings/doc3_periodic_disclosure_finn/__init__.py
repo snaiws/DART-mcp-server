@@ -1,2 +1,3 @@
+from .doc3_2_get_get_multi_company_accounts import Docstring_get_multi_company_accounts
 from .doc3_3_get_xbrl_financial_statements import Docstring_get_xbrl_financial_statements
 from .doc3_6_get_single_company_key_indicators import Docstring_get_single_company_key_indicators
