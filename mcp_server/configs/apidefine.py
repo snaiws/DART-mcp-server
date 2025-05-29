@@ -96,12 +96,12 @@ class ApiDefineUnit:
     get_stock_exchange_transfer_decision: dict = field(default_factory=lambda: {"name": "주식교환·이전 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/stkExtrDecsn.json", "api_key": os.getenv('DART_API_KEY')}) # 5-36
 
     # 증권신고서 주요정보 (Securities registration statement key information)
-    # get_equity_securities_registration: dict = field(default_factory=lambda: {"name": "지분증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-1
-    # get_debt_securities_registration: dict = field(default_factory=lambda: {"name": "채무증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-2
-    # get_depositary_receipts_registration: dict = field(default_factory=lambda: {"name": "증권예탁증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-3
-    # get_merger_registration: dict = field(default_factory=lambda: {"name": "합병", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-4
-    # get_comprehensive_stock_exchange_transfer_registration: dict = field(default_factory=lambda: {"name": "주식의포괄적교환,이전", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-5
-    # get_split_registration: dict = field(default_factory=lambda: {"name": "분할", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-6
+    get_equity_securities_registration: dict = field(default_factory=lambda: {"name": "지분증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/estkRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-1
+    get_debt_securities_registration: dict = field(default_factory=lambda: {"name": "채무증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/bdRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-2
+    get_depositary_receipts_registration: dict = field(default_factory=lambda: {"name": "증권예탁증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/stkdpRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-3
+    get_merger_registration: dict = field(default_factory=lambda: {"name": "합병", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/mgRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-4
+    get_comprehensive_stock_exchange_transfer_registration: dict = field(default_factory=lambda: {"name": "주식의포괄적교환,이전", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/extrRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-5
+    get_split_registration: dict = field(default_factory=lambda: {"name": "분할", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/dvRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-6
 
     def to_dict(self):
         return asdict(self)
