@@ -1,0 +1,2 @@
+from .schema4_1_get_major_holding_reports import Schema_get_major_holding_reports
+from .schema4_2_get_executive_major_shareholders_reports import Schema_get_executive_major_shareholders_reports

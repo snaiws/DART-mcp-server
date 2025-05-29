@@ -54,8 +54,8 @@ class ApiDefineUnit:
     # get_multi_company_key_indicators: dict = field(default_factory=lambda: {"name": "다중회사 주요 재무지표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-7
 
     # 지분공시 종합정보 (Comprehensive equity disclosure information)
-    # get_major_holding_reports: dict = field(default_factory=lambda: {"name": "대량보유 상황보고", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 4-1
-    # get_executive_major_shareholders_reports: dict = field(default_factory=lambda: {"name": "임원, 주요주주 소유보고", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 4-2
+    get_major_holding_reports: dict = field(default_factory=lambda: {"name": "대량보유 상황보고", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/majorstock.json", "api_key": os.getenv('DART_API_KEY')}) # 4-1
+    get_executive_major_shareholders_reports: dict = field(default_factory=lambda: {"name": "임원, 주요주주 소유보고", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/elestock.json", "api_key": os.getenv('DART_API_KEY')}) # 4-2
 
     # 주요사항보고서 주요정보 (Key issues report information)
     get_asset_acquisition_disposal: dict = field(default_factory=lambda: {"name": "자산양수도(기타), 풋백옵션", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/astInhtrfEtcPtbkOpt.json", "api_key": os.getenv('DART_API_KEY')}) # 5-1
