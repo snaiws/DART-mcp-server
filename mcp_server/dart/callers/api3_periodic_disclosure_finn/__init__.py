@@ -1,2 +1,3 @@
+from .api3_1_get_single_company_accounts import get_single_company_accounts
 from .api3_3_get_xbrl_financial_statements import get_xbrl_financial_statements
 from .api3_6_get_single_company_key_indicators import get_single_company_key_indicators
