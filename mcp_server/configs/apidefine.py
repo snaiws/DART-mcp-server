@@ -45,7 +45,7 @@ class ApiDefineUnit:
     get_private_fund_usage: dict = field(default_factory=lambda: {"name": "사모자금의 사용내역", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/prvsrpCptalUseDtls.json", "api_key": os.getenv('DART_API_KEY')}) # 2-28
 
     # 정기보고서 재무정보 (Regular report financial information)
-    # get_single_company_accounts: dict = field(default_factory=lambda: {"name": "단일회사 주요계정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-1
+    get_single_company_accounts: dict = field(default_factory=lambda: {"name": "단일회사 주요계정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttSinglAcnt.json", "api_key": os.getenv('DART_API_KEY')}) # 3-1
     # get_multi_company_accounts: dict = field(default_factory=lambda: {"name": "다중회사 주요계정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-2
     get_xbrl_financial_statements: dict = field(default_factory=lambda: {"name": "재무제표 원본파일(XBRL)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttXbrl.xml", "api_key": os.getenv('DART_API_KEY'), "path_finstats":os.path.join('.','data', 'mcp', 'DART', 'finstats')}) # 3-3
     get_complete_financial_statements: dict = field(default_factory=lambda: {"name": "단일회사 전체 재무제표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttSinglAcntAll.json", "api_key": os.getenv('DART_API_KEY')}) # 3-4
