@@ -41,7 +41,7 @@ async def get_executive_major_shareholders_reports(
     result = []
     for datum in data['list']:
         # dict to string
-        datum = [f"{transform1[k]}: {datum[k]}" for k in transform1]
+        datum = [f"{transform1[k]}: {datum.get(k,'-')}" for k in transform1]
         datum = "\n".join(datum)
         result.append(datum)
 

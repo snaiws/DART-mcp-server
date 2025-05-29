@@ -153,7 +153,7 @@ async def get_equity_securities_registration(
             # 법인구분처리
             datum['corp_cls'] = transform9[datum['corp_cls']]
             # dict to string
-            datum = [f"{transform10[title][k]}: {datum[k]}" for k in transform10[title]]
+            datum = [f"{transform10[title][k]}: {datum.get(k,'-')}" for k in transform10[title]]
             datum = "\n".join(datum)
             result_group.append(datum)
         result.append('\n'.join(result_group))
