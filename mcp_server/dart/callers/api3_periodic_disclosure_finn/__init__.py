@@ -1,2 +1,3 @@
 from .api3_3_get_xbrl_financial_statements import get_xbrl_financial_statements
+from .api3_5_get_xbrl_taxonomy_format import get_xbrl_taxonomy_format
 from .api3_6_get_single_company_key_indicators import get_single_company_key_indicators
