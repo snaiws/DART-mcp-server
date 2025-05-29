@@ -1,0 +1,2 @@
+from .api4_1_get_major_holding_reports import get_major_holding_reports
+from .api4_2_get_executive_major_shareholders_reports import get_executive_major_shareholders_reports

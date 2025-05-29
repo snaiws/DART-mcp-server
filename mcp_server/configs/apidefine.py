@@ -16,46 +16,46 @@ class ApiDefineUnit:
     
     # 정기보고서 주요정보 (Regular report key information)
     get_capitalstatus: dict = field(default_factory=lambda: {"name": "증자(감자) 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/irdsSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-1
-    # get_dividend_info: dict = field(default_factory=lambda: {"name": "배당에 관한 사항", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-2
-    # get_treasury_stock: dict = field(default_factory=lambda: {"name": "자기주식 취득 및 처분 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-3
-    # get_major_shareholders: dict = field(default_factory=lambda: {"name": "최대주주 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-4
-    # get_major_shareholders_changes: dict = field(default_factory=lambda: {"name": "최대주주 변동현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-5
-    # get_minority_shareholders: dict = field(default_factory=lambda: {"name": "소액주주 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-6
-    # get_executives: dict = field(default_factory=lambda: {"name": "임원 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-7
-    # get_employees: dict = field(default_factory=lambda: {"name": "직원 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-8
-    # get_individual_compensation_over_500m: dict = field(default_factory=lambda: {"name": "이사·감사의 개인별 보수현황(5억원 이상)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-9
-    # get_board_total_compensation: dict = field(default_factory=lambda: {"name": "이사·감사 전체의 보수현황(보수지급금액 - 이사·감사 전체)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-10
-    # get_top5_compensation_over_500m: dict = field(default_factory=lambda: {"name": "개인별 보수지급 금액(5억이상 상위5인)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-11
-    # get_investment_in_other_corp: dict = field(default_factory=lambda: {"name": "타법인 출자현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-12
-    # get_total_shares: dict = field(default_factory=lambda: {"name": "주식의 총수 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-13
-    # get_debt_securities_issuance: dict = field(default_factory=lambda: {"name": "채무증권 발행실적", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-14
-    # get_commercial_paper_balance: dict = field(default_factory=lambda: {"name": "기업어음증권 미상환 잔액", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-15
-    # get_short_term_bond_balance: dict = field(default_factory=lambda: {"name": "단기사채 미상환 잔액", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-16
-    # get_corporate_bond_balance: dict = field(default_factory=lambda: {"name": "회사채 미상환 잔액", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-17
-    # get_hybrid_securities_balance: dict = field(default_factory=lambda: {"name": "신종자본증권 미상환 잔액", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-18
-    # get_contingent_convertible_balance: dict = field(default_factory=lambda: {"name": "조건부 자본증권 미상환 잔액", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-19
-    # get_auditor_opinion: dict = field(default_factory=lambda: {"name": "회계감사인의 명칭 및 감사의견", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-20
-    # get_audit_service_contract: dict = field(default_factory=lambda: {"name": "감사용역체결현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-21
-    # get_non_audit_service_contract: dict = field(default_factory=lambda: {"name": "회계감사인과의 비감사용역 계약체결 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-22
-    # get_outside_directors: dict = field(default_factory=lambda: {"name": "사외이사 및 그 변동현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-23
-    # get_unregistered_executives_compensation: dict = field(default_factory=lambda: {"name": "미등기임원 보수현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-24
-    # get_board_approved_compensation: dict = field(default_factory=lambda: {"name": "이사·감사 전체의 보수현황(주주총회 승인금액)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-25
-    # get_board_compensation_by_type: dict = field(default_factory=lambda: {"name": "이사·감사 전체의 보수현황(보수지급금액 - 유형별)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-26
-    # get_public_fund_usage: dict = field(default_factory=lambda: {"name": "공모자금의 사용내역", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-27
-    # get_private_fund_usage: dict = field(default_factory=lambda: {"name": "사모자금의 사용내역", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 2-28
+    get_dividend_info: dict = field(default_factory=lambda: {"name": "배당에 관한 사항", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/alotMatter.json", "api_key": os.getenv('DART_API_KEY')}) # 2-2
+    get_treasury_stock: dict = field(default_factory=lambda: {"name": "자기주식 취득 및 처분 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/tesstkAcqsDspsSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-3
+    get_major_shareholders: dict = field(default_factory=lambda: {"name": "최대주주 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/hyslrSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-4
+    get_major_shareholders_changes: dict = field(default_factory=lambda: {"name": "최대주주 변동현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/hyslrChgSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-5
+    get_minority_shareholders: dict = field(default_factory=lambda: {"name": "소액주주 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/mrhlSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-6
+    get_executives: dict = field(default_factory=lambda: {"name": "임원 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/exctvSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-7
+    get_employees: dict = field(default_factory=lambda: {"name": "직원 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/empSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-8
+    get_individual_compensation_over_500m: dict = field(default_factory=lambda: {"name": "이사·감사의 개인별 보수현황(5억원 이상)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/hmvAuditIndvdlBySttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-9
+    get_board_total_compensation: dict = field(default_factory=lambda: {"name": "이사·감사 전체의 보수현황(보수지급금액 - 이사·감사 전체)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/hmvAuditAllSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-10
+    get_top5_compensation_over_500m: dict = field(default_factory=lambda: {"name": "개인별 보수지급 금액(5억이상 상위5인)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/indvdlByPay.json", "api_key": os.getenv('DART_API_KEY')}) # 2-11
+    get_investment_in_other_corp: dict = field(default_factory=lambda: {"name": "타법인 출자현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/otrCprInvstmntSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-12
+    get_total_shares: dict = field(default_factory=lambda: {"name": "주식의 총수 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/stockTotqySttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-13
+    get_debt_securities_issuance: dict = field(default_factory=lambda: {"name": "채무증권 발행실적", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/detScritsIsuAcmslt.json", "api_key": os.getenv('DART_API_KEY')}) # 2-14
+    get_commercial_paper_balance: dict = field(default_factory=lambda: {"name": "기업어음증권 미상환 잔액", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/entrprsBilScritsNrdmpBlce.json", "api_key": os.getenv('DART_API_KEY')}) # 2-15
+    get_short_term_bond_balance: dict = field(default_factory=lambda: {"name": "단기사채 미상환 잔액", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/srtpdPsndbtNrdmpBlce.json", "api_key": os.getenv('DART_API_KEY')}) # 2-16
+    get_corporate_bond_balance: dict = field(default_factory=lambda: {"name": "회사채 미상환 잔액", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/cprndNrdmpBlce.json", "api_key": os.getenv('DART_API_KEY')}) # 2-17
+    get_hybrid_securities_balance: dict = field(default_factory=lambda: {"name": "신종자본증권 미상환 잔액", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/newCaplScritsNrdmpBlce.json", "api_key": os.getenv('DART_API_KEY')}) # 2-18
+    get_contingent_convertible_balance: dict = field(default_factory=lambda: {"name": "조건부 자본증권 미상환 잔액", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/cndlCaplScritsNrdmpBlce.json", "api_key": os.getenv('DART_API_KEY')}) # 2-19
+    get_auditor_opinion: dict = field(default_factory=lambda: {"name": "회계감사인의 명칭 및 감사의견", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/accnutAdtorNmNdAdtOpinion.json	", "api_key": os.getenv('DART_API_KEY')}) # 2-20
+    get_audit_service_contract: dict = field(default_factory=lambda: {"name": "감사용역체결현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/adtServcCnclsSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-21
+    get_non_audit_service_contract: dict = field(default_factory=lambda: {"name": "회계감사인과의 비감사용역 계약체결 현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/accnutAdtorNonAdtServcCnclsSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-22
+    get_outside_directors: dict = field(default_factory=lambda: {"name": "사외이사 및 그 변동현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/outcmpnyDrctrNdChangeSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-23
+    get_unregistered_executives_compensation: dict = field(default_factory=lambda: {"name": "미등기임원 보수현황", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/unrstExctvMendngSttus.json", "api_key": os.getenv('DART_API_KEY')}) # 2-24
+    get_board_approved_compensation: dict = field(default_factory=lambda: {"name": "이사·감사 전체의 보수현황(주주총회 승인금액)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/drctrAdtAllMendngSttusGmtsckConfmAmount.json", "api_key": os.getenv('DART_API_KEY')}) # 2-25
+    get_board_compensation_by_type: dict = field(default_factory=lambda: {"name": "이사·감사 전체의 보수현황(보수지급금액 - 유형별)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/drctrAdtAllMendngSttusMendngPymntamtTyCl.json", "api_key": os.getenv('DART_API_KEY')}) # 2-26
+    get_public_fund_usage: dict = field(default_factory=lambda: {"name": "공모자금의 사용내역", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/pssrpCptalUseDtls.json", "api_key": os.getenv('DART_API_KEY')}) # 2-27
+    get_private_fund_usage: dict = field(default_factory=lambda: {"name": "사모자금의 사용내역", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/prvsrpCptalUseDtls.json", "api_key": os.getenv('DART_API_KEY')}) # 2-28
 
     # 정기보고서 재무정보 (Regular report financial information)
     # get_single_company_accounts: dict = field(default_factory=lambda: {"name": "단일회사 주요계정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-1
     # get_multi_company_accounts: dict = field(default_factory=lambda: {"name": "다중회사 주요계정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-2
     get_xbrl_financial_statements: dict = field(default_factory=lambda: {"name": "재무제표 원본파일(XBRL)", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttXbrl.xml", "api_key": os.getenv('DART_API_KEY'), "path_finstats":os.path.join('.','data', 'mcp', 'DART', 'finstats')}) # 3-3
     get_complete_financial_statements: dict = field(default_factory=lambda: {"name": "단일회사 전체 재무제표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttSinglAcntAll.json", "api_key": os.getenv('DART_API_KEY')}) # 3-4
-    # get_xbrl_taxonomy_format: dict = field(default_factory=lambda: {"name": "XBRL택사노미재무제표양식", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-5
+    get_xbrl_taxonomy_format: dict = field(default_factory=lambda: {"name": "XBRL택사노미재무제표양식", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/xbrlTaxonomy.json", "api_key": os.getenv('DART_API_KEY')}) # 3-5
     get_single_company_key_indicators: dict = field(default_factory=lambda: {"name": "단일회사 주요 재무지표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttSinglIndx.json", "api_key": os.getenv('DART_API_KEY')}) # 3-6
     # get_multi_company_key_indicators: dict = field(default_factory=lambda: {"name": "다중회사 주요 재무지표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-7
 
     # 지분공시 종합정보 (Comprehensive equity disclosure information)
-    # get_major_holding_reports: dict = field(default_factory=lambda: {"name": "대량보유 상황보고", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 4-1
-    # get_executive_major_shareholders_reports: dict = field(default_factory=lambda: {"name": "임원, 주요주주 소유보고", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 4-2
+    get_major_holding_reports: dict = field(default_factory=lambda: {"name": "대량보유 상황보고", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/majorstock.json", "api_key": os.getenv('DART_API_KEY')}) # 4-1
+    get_executive_major_shareholders_reports: dict = field(default_factory=lambda: {"name": "임원, 주요주주 소유보고", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/elestock.json", "api_key": os.getenv('DART_API_KEY')}) # 4-2
 
     # 주요사항보고서 주요정보 (Key issues report information)
     get_asset_acquisition_disposal: dict = field(default_factory=lambda: {"name": "자산양수도(기타), 풋백옵션", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/astInhtrfEtcPtbkOpt.json", "api_key": os.getenv('DART_API_KEY')}) # 5-1
@@ -96,12 +96,12 @@ class ApiDefineUnit:
     get_stock_exchange_transfer_decision: dict = field(default_factory=lambda: {"name": "주식교환·이전 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/stkExtrDecsn.json", "api_key": os.getenv('DART_API_KEY')}) # 5-36
 
     # 증권신고서 주요정보 (Securities registration statement key information)
-    # get_equity_securities_registration: dict = field(default_factory=lambda: {"name": "지분증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-1
-    # get_debt_securities_registration: dict = field(default_factory=lambda: {"name": "채무증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-2
-    # get_depositary_receipts_registration: dict = field(default_factory=lambda: {"name": "증권예탁증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-3
-    # get_merger_registration: dict = field(default_factory=lambda: {"name": "합병", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-4
-    # get_comprehensive_stock_exchange_transfer_registration: dict = field(default_factory=lambda: {"name": "주식의포괄적교환,이전", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-5
-    # get_split_registration: dict = field(default_factory=lambda: {"name": "분할", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 6-6
+    get_equity_securities_registration: dict = field(default_factory=lambda: {"name": "지분증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/estkRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-1
+    get_debt_securities_registration: dict = field(default_factory=lambda: {"name": "채무증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/bdRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-2
+    get_depositary_receipts_registration: dict = field(default_factory=lambda: {"name": "증권예탁증권", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/stkdpRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-3
+    get_merger_registration: dict = field(default_factory=lambda: {"name": "합병", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/mgRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-4
+    get_comprehensive_stock_exchange_transfer_registration: dict = field(default_factory=lambda: {"name": "주식의포괄적교환,이전", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/extrRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-5
+    get_split_registration: dict = field(default_factory=lambda: {"name": "분할", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/dvRs.json", "api_key": os.getenv('DART_API_KEY')}) # 6-6
 
     def to_dict(self):
         return asdict(self)
