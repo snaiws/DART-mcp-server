@@ -51,7 +51,7 @@ class ApiDefineUnit:
     get_complete_financial_statements: dict = field(default_factory=lambda: {"name": "단일회사 전체 재무제표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttSinglAcntAll.json", "api_key": os.getenv('DART_API_KEY')}) # 3-4
     # get_xbrl_taxonomy_format: dict = field(default_factory=lambda: {"name": "XBRL택사노미재무제표양식", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-5
     get_single_company_key_indicators: dict = field(default_factory=lambda: {"name": "단일회사 주요 재무지표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttSinglIndx.json", "api_key": os.getenv('DART_API_KEY')}) # 3-6
-    # get_multi_company_key_indicators: dict = field(default_factory=lambda: {"name": "다중회사 주요 재무지표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 3-7
+    get_multi_company_key_indicators: dict = field(default_factory=lambda: {"name": "다중회사 주요 재무지표", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/fnlttCmpnyIndx.json", "api_key": os.getenv('DART_API_KEY')}) # 3-7
 
     # 지분공시 종합정보 (Comprehensive equity disclosure information)
     # get_major_holding_reports: dict = field(default_factory=lambda: {"name": "대량보유 상황보고", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 4-1
