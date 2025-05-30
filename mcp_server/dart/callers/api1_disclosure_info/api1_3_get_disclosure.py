@@ -27,7 +27,9 @@ async def get_disclosure(
 
     # 클라이언트로 API 요청 보내기
     response = await client.get(endpoint, params=params)
-    
+
+    result = []
+    result.append(f"status[{response.status_code}]")
     # 응답 확인
     if response.status_code == 200:
         # 응답이 성공적인 경우 압축 파일 처리
@@ -41,8 +43,9 @@ async def get_disclosure(
             # XML 파일 저장 (선택사항)
             with open(path_disclosure, 'wb') as f:
                 f.write(xml_content)
-                
-    return [f"status[{response.status_code}]"]
+        result.append(f"path: {path_disclosure}")
+        
+    return result
 
 
 
