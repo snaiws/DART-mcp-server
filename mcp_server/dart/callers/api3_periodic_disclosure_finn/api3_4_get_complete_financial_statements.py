@@ -1,3 +1,7 @@
+import os
+
+import pandas as pd
+
 from apimanager import HttpxAPIManager
 
 
@@ -5,7 +9,7 @@ from apimanager import HttpxAPIManager
 async def get_complete_financial_statements(
     base_url:str,
     endpoint:str,
-    api_key:str, 
+    api_key:str,
     corp_code:str, 
     bsns_year:str,
     reprt_code:str,
@@ -28,25 +32,25 @@ async def get_complete_financial_statements(
     data = response.json()
 
     transform1 = {
-        "rcept_no": "접수번호(14자리)",
-        "reprt_code": "보고서 코드",
-        "bsns_year": "사업 연도",
-        "corp_code": "고유번호 (공시대상회사 8자리 코드)",
+        "rcept_no": "접수번호",
+        "reprt_code": "보고서코드",
+        "bsns_year": "사업연도",
+        "corp_code": "고유번호",
         "sj_div": "재무제표구분",
-        "sj_nm": "재무제표명 (재무상태표 또는 손익계산서 등)",
-        "account_id": "계정ID (XBRL 표준계정ID)",
-        "account_nm": "계정명 (계정명칭",
-        "account_detail": "계정상세 (자본변동표에만 출력되는 상세명칭)",
+        "sj_nm": "재무제표명",
+        "account_id": "계정ID",
+        "account_nm": "계정명",
+        "account_detail": "계정상세",
         "thstrm_nm": "당기명",
-        "thstrm_amount": "당기금액 (분/반기 손익계산서는 3개월 금액)",
+        "thstrm_amount": "당기금액",
         "thstrm_add_amount": "당기누적금액",
         "frmtrm_nm": "전기명",
         "frmtrm_amount": "전기금액",
         "frmtrm_q_nm": "전기명(분/반기)",
-        "frmtrm_q_amount": "전기금액(분/반기) (분/반기 손익계산서는 3개월 금액)",
+        "frmtrm_q_amount": "전기금액(분/반기)",
         "frmtrm_add_amount": "전기누적금액",
-        "bfefrmtrm_nm": "전전기명 (사업보고서만)",
-        "bfefrmtrm_amount": "전전기금액 (사업보고서만)",
+        "bfefrmtrm_nm": "전전기명",
+        "bfefrmtrm_amount": "전전기금액",
         "ord": "계정과목 정렬순서",
         "currency": "통화 단위"
     }
@@ -57,7 +61,6 @@ async def get_complete_financial_statements(
         "11014":"3분기보고서",
         "11011":"사업보고서",
     }
-
 
     transform4 = {
         "BS" : "재무상태표",
@@ -73,7 +76,9 @@ async def get_complete_financial_statements(
         datum['reprt_code'] = transform2[datum['reprt_code']]
         datum['sj_div'] = transform4[datum['sj_div']]
         # dict to string
-        datum = [f"{transform1[k]}: {datum.get(k,'-')}" for k in transform1]
-        datum = "\n".join(datum)
+        datum = {transform1[k]:datum.get(k,'-') for k in transform1}
         result.append(datum)
-    return result
+    result = pd.DataFrame(result)
+
+    result = result.to_csv(index=False)
+    return [result]

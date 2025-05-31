@@ -1,2 +1,2 @@
 from .get_corpcode import get_corpcode
-from .get_corp_candidate import get_corp_candidate
+from .get_corp_candidates import get_corp_candidates

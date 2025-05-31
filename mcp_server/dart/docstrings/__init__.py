@@ -1,3 +1,4 @@
+from .doc0_etc import *
 from .doc1_disclosure_info import *
 from .doc2_periodic_disclosure_main import *
 from .doc3_periodic_disclosure_finn import *

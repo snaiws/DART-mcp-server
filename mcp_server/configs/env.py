@@ -14,8 +14,8 @@ class EnvDefineUnit:
     '''
     SERVER_NAME:str = "DART"
     BASE_URL:str = "https://opendart.fss.or.kr/api"
-    PATH_BASE:str = os.getenv("PATH_DARTMCPSERVER", os.path.join(os.path.expanduser('~'), 'Documents', 'mcp', 'DART'))
-    PATH_CORPLIST:str = os.getenv("PATH_DARTMCPSERVER_CORPLIST",os.path.join(PATH_BASE, "CORPCODE.xml"))
+    PATH_DATA:str = os.getenv("PATH_DARTMCPSERVER", os.path.join('.','data', 'mcp', 'DART'))
+    PATH_CORPLIST:str = os.getenv("PATH_DARTMCPSERVER_CORPLIST",os.path.join(PATH_DATA, "CORPCODE.xml"))
     API_KEY:str = os.getenv("DART_API_KEY", "")
     REGION:str = os.getenv("REGION","Asia/Seoul")
     CLIENT_MAX_PATIENT:float = 4.0

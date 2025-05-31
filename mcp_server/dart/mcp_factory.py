@@ -1,5 +1,8 @@
+import os
 from typing import Any, Type
+from urllib.parse import urlparse, parse_qs
 from collections.abc import Sequence
+import datetime
 import logging
 import inspect
 import traceback
@@ -10,14 +13,16 @@ from pydantic import ValidationError, BaseModel
 from . import callers
 from . import docstrings
 from . import schemas
+from . import parser
 
 logger = logging.getLogger()
 
 class McpFactory:
-    def __init__(self, mcp, apiinfo):
+    def __init__(self, mcp, apiinfo:dict):
         # Import modules dynamically
         self.mcp = mcp
         self.apiinfo = apiinfo
+        self.parser_module = parser
         self.function_module = callers
         self.docstring_module = docstrings
         self.schema_module = schemas
@@ -50,7 +55,9 @@ class McpFactory:
         result = ""
 
         try:
-            function = getattr(self.function_module, name)
+            function = getattr(self.function_module, name, None) or getattr(self.parser_module, name, None)
+            if function is None:
+                raise AttributeError(f"Function '{name}' not found in any module")
             
             dynamic_args = self._get_matching_schema(name)(**arguments)
             dynamic_args = dict(dynamic_args)

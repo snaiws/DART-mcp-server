@@ -34,11 +34,11 @@ if usecase:
 
 
 # 내 문서에 mcp 서버용 디렉토리 생성(회사리스트, 로그)
-os.makedirs(env.PATH_BASE, exist_ok=True)
+os.makedirs(env.PATH_DATA, exist_ok=True)
 
 # 로거 선언
 now = get_now(env.REGION, form="%Y%m%d%H%M%S")
-logger = setup_logger(env.PATH_BASE)
+logger = setup_logger(env.PATH_DATA)
 
 logger.info(f"server started, usecase = {usecase_key}")
 
@@ -67,7 +67,7 @@ client = HttpxAPIManager(
     exception_server_error = Dart_server_exception
     )
 
-factory = McpFactory(app, apiinfo)
+factory = McpFactory(mcp=app, apiinfo=apiinfo)
 
 factory.run()
 
