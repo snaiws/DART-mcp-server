@@ -14,6 +14,7 @@ from . import callers
 from . import docstrings
 from . import schemas
 from . import parser
+# from . import prompts
 
 logger = logging.getLogger()
 
@@ -26,12 +27,32 @@ class McpFactory:
         self.function_module = callers
         self.docstring_module = docstrings
         self.schema_module = schemas
+        # self.prompt_module = prompts
+        # self.prompts = {name:obj for name, obj in inspect.getmembers(prompts)}
 
 
     def run(self):
         self.mcp.list_tools()(self.list_tools)
+        # self.mcp.list_prompts()(self.list_prompts)
         self.mcp.call_tool()(self.call_tool)
+        # self.mcp.get_prompt()(self.get_prompt)
 
+
+    # async def list_prompts(self) -> list[types.Prompt]:
+    #     return list(self.prompts.keys())
+    
+
+    # async def get_prompt(self, name:str, arguments:dict[str,str] | None = None) -> types.GetPromptResult:
+    #     return types.GetPromptResult(
+    #         description=self.prompts[name].description,
+    #         messages=[
+    #             types.PromptMessage(
+    #                 role=self.prompts[name].role,
+    #                 content=types.TextContent(type="text", text=self.prompts[name].text)
+    #             )
+    #         ]
+    #     )
+    
 
     async def list_tools(self) -> list[types.Tool]: 
         list_of_tools = [
