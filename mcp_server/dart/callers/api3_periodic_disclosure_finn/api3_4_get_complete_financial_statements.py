@@ -80,5 +80,5 @@ async def get_complete_financial_statements(
         result.append(datum)
     result = pd.DataFrame(result)
     result = result[['보고서코드', '재무제표명','계정명','당기금액','통화 단위']].groupby(by=['보고서코드','재무제표명','계정명','통화 단위']).sum()
-    result = result.to_csv(index=False)
+    result = result.to_csv(index=True)
     return [result]
