@@ -61,7 +61,7 @@ class ApiDefineUnit:
     get_asset_acquisition_disposal: dict = field(default_factory=lambda: {"name": "자산양수도(기타), 풋백옵션", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/astInhtrfEtcPtbkOpt.json", "api_key": os.getenv('DART_API_KEY')}) # 5-1
     # get_default_occurrence: dict = field(default_factory=lambda: {"name": "부도발생", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-2
     # get_business_suspension: dict = field(default_factory=lambda: {"name": "영업정지", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-3
-    # get_rehabilitation_filing: dict = field(default_factory=lambda: {"name": "회생절차 개시신청", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-4
+    get_rehabilitation_filing: dict = field(default_factory=lambda: {"name": "회생절차 개시신청", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/ctrcvsBgrq.json", "api_key": os.getenv('DART_API_KEY')}) # 5-4
     # get_dissolution_event: dict = field(default_factory=lambda: {"name": "해산사유 발생", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-5
     get_paid_capital_increase: dict = field(default_factory=lambda: {"name": "유상증자 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/piicDecsn.json", "api_key": os.getenv('DART_API_KEY')}) # 5-6
     # get_free_capital_increase: dict = field(default_factory=lambda: {"name": "무상증자 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-7
