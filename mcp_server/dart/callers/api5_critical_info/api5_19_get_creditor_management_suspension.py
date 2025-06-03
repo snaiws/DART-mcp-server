@@ -26,12 +26,15 @@ async def get_creditor_management_suspension(
     data = response.json()
     
     transform1 = {
-        "rcept_no": "접수번호(14자리)",
+        "rcept_no": "접수번호",
         "corp_cls": "법인구분",
-        "corp_code": "공시대상회사의 고유번호(8자리)",
-        "corp_name": "공시대상회사명",
-        "rp_rsn": "보고 사유",
-        "ast_inhtrf_prc": "자산양수·도 가액"
+        "corp_code": "고유번호", 
+        "corp_name": "회사명",
+        "mngt_pcsp_dd": "관리절차중단 결정일자",
+        "mngt_int": "관리기관",
+        "sp_rs": "중단사유",
+        "ft_ctp": "향후대책",
+        "cfd": "확인일자"
     }
 
     transform2 = {
