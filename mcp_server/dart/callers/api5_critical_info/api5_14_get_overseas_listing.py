@@ -26,12 +26,16 @@ async def get_overseas_listing(
     data = response.json()
     
     transform1 = {
-        "rcept_no": "접수번호(14자리)",
+        "rcept_no": "접수번호",
         "corp_cls": "법인구분",
-        "corp_code": "공시대상회사의 고유번호(8자리)",
-        "corp_name": "공시대상회사명",
-        "rp_rsn": "보고 사유",
-        "ast_inhtrf_prc": "자산양수·도 가액"
+        "corp_code": "고유번호",
+        "corp_name": "회사명",
+        "lststk_ostk_cnt": "상장주식 종류 및 수(보통주식(주))",
+        "lststk_estk_cnt": "상장주식 종류 및 수(기타주식(주))",
+        "lstex_nt": "상장거래소(소재국가)",
+        "stk_cd": "종목 명 (code)",
+        "lstd": "상장일자",
+        "cfd": "확인일자",
     }
 
     transform2 = {
