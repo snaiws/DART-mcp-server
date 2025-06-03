@@ -70,7 +70,7 @@ class ApiDefineUnit:
     # get_creditor_management_start: dict = field(default_factory=lambda: {"name": "채권은행 등의 관리절차 개시", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-10
     # get_litigation_filing: dict = field(default_factory=lambda: {"name": "소송 등의 제기", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-11
     # get_overseas_listing_decision: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-12
-    # get_overseas_delisting_decision: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장폐지 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-13
+    get_overseas_delisting_decision: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장폐지 결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/ovDlstDecsn.json", "api_key": os.getenv('DART_API_KEY')}) # 5-13
     # get_overseas_listing: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-14
     # get_overseas_delisting: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장폐지", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "", "api_key": os.getenv('DART_API_KEY')}) # 5-15
     get_convertible_bond_issuance: dict = field(default_factory=lambda: {"name": "전환사채권 발행결정", "base_url": "https://opendart.fss.or.kr/api", "endpoint": "/cvbdIsDecsn.json", "api_key": os.getenv('DART_API_KEY')}) # 5-16
