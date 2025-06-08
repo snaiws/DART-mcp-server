@@ -9,19 +9,17 @@ load_dotenv()
 @dataclass
 class EnvDefineUnit:
     '''
-    환경변수
-    나중에 바뀌는 서버환경마다 적응시킬 수 있을까
+    파이썬 환경변수
     '''
-    SERVER_NAME:str = "DART"
-    BASE_URL:str = "https://opendart.fss.or.kr/api"
-    PATH_DATA:str = os.getenv("PATH_DARTMCPSERVER", os.path.join('.','data', 'mcp', 'DART'))
-    PATH_CORPLIST:str = os.getenv("PATH_DARTMCPSERVER_CORPLIST",os.path.join(PATH_DATA, "CORPCODE.xml"))
+    SERVER_NAME:str = os.getenv("SERVER_NAME", "DART")
     API_KEY:str = os.getenv("DART_API_KEY", "")
-    REGION:str = os.getenv("REGION","Asia/Seoul")
-    CLIENT_MAX_PATIENT:float = 4.0
-    API_RATE_LIMIT:int = 1000
-    API_RATE_PERIOD:int = 60
+    USECASE:str = os.getenv("USECASE", "")
+    PATH_DATA:str = os.getenv("PATH_DATA","")
 
+    BASE_URL: "https://opendart.fss.or.kr/api",
+    CLIENT_MAX_PATIENT: 4.0,
+    API_RATE_LIMIT: 1000,
+    API_RATE_PERIOD:60
     
     def to_dict(self):
         return asdict(self)
