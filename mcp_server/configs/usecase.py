@@ -2,7 +2,7 @@ from typing import List
 from dataclasses import dataclass, asdict, field
 
 @dataclass
-class UsecaseDefineUnit:
+class UsecaseDefine:
     '''
     환경변수
     나중에 바뀌는 서버환경마다 적응시킬 수 있을까
@@ -126,15 +126,3 @@ class UsecaseDefineUnit:
 
     
     
-    def to_dict(self):
-        return asdict(self)
-    
-
-if __name__ == "__main__":
-    import json
-    endpoint = UsecaseDefineUnit()
-    
-    d = endpoint.to_dict()
-    print(d)
-    with open("usecase.json", "w") as f:
-        json.dump(d, f)
