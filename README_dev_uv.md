@@ -92,7 +92,8 @@ uv sync
                     "run_server.py"
                 ],
                 "env":{
-                    "DART_API_KEY" : "your-dart-api-key"
+                    "DART_API_KEY" : "your-dart-api-key",
+                    "USECASE" : "your-usecase"
                 }
             }
         }
