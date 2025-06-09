@@ -29,7 +29,7 @@ os.makedirs(configs.PATH_DATA, exist_ok=True)
 # 로거 선언
 path_log = ManagedPath(configs.PATH_LOG)
 now = get_now(configs.REGION, form="%Y%m%d%H%M%S")
-logger = setup_logger('dart', path_log)
+logger = setup_logger('', path_log)
 
 logger.info(f"server started, usecase = {configs.USECASE}")
 
