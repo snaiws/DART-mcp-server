@@ -12,5 +12,5 @@ class PathDefine:
     PATH_CORPLIST: Path = field(default_factory=lambda: Path(path_data) / 'CORPCODE.xml')
     PATH_FINSTATS: Path = field(default_factory=lambda: Path(path_data) / 'finstats')
     PATH_DISCLOSURES: Path = field(default_factory=lambda: Path(path_data) / 'disclosures')
-        
+    PATH_LOG: Path = field(default_factory=lambda: Path(path_data) / 'dart.log')
     

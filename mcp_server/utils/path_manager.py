@@ -1,144 +1,190 @@
-import asyncio
+from queue import Queue, Empty
 import threading
+from dataclasses import dataclass
+from typing import Any, Callable, Optional
+from enum import Enum
 from pathlib import Path
-from typing import Union, Literal
-import weakref
 
+class TaskType(Enum):
+    READ = "read"
+    WRITE = "write"
+    DELETE = "delete"
 
+@dataclass
+class FileTask:
+    task_id: str
+    task_type: TaskType
+    file_path: str
+    data: Any = None
+    binary: bool = False
+    callback: Optional[Callable] = None
+    result_queue: Optional[Queue] = None
 
-class AsyncRWLock:
-    """비동기 Reader-Writer 락 (writer 우선순위 포함)"""
+class FileMessageBroker:
+    def __init__(self, num_workers=4):
+        self.task_queue = Queue()
+        self.workers = []
+        self.results = {}
+        self.file_locks = {}
+        self.lock = threading.Lock()
+        
+        # 워커 스레드들 시작
+        for i in range(num_workers):
+            worker = threading.Thread(target=self._worker, daemon=True)
+            worker.start()
+            self.workers.append(worker)
     
-    def __init__(self):
-        self._readers = 0
-        self._writers = 0
-        self._waiting_writers = 0  # 대기 중인 writer 수
-        self._lock = asyncio.Lock()
-        self._condition = asyncio.Condition(self._lock)
-    
-    async def acquire_read(self):
-        """읽기 락 획득"""
-        async with self._condition:
-            # writer가 있거나 대기 중인 writer가 있으면 대기 (writer 우선순위)
-            while self._writers > 0 or self._waiting_writers > 0:
-                await self._condition.wait()
-            self._readers += 1
-    
-    async def release_read(self):
-        """읽기 락 해제"""
-        async with self._condition:
-            self._readers -= 1
-            if self._readers == 0:
-                self._condition.notify_all()
-    
-    async def acquire_write(self):
-        """쓰기 락 획득"""
-        async with self._condition:
-            self._waiting_writers += 1
+    def _worker(self):
+        while True:
             try:
-                while self._writers > 0 or self._readers > 0:
-                    await self._condition.wait()
-                self._writers += 1
-            finally:
-                self._waiting_writers -= 1
+                task = self.task_queue.get(timeout=1)
+                if task is None:  # 종료 신호
+                    break
+                self._execute_task(task)
+                self.task_queue.task_done()
+            except Empty:
+                continue
     
-    async def release_write(self):
-        """쓰기 락 해제"""
-        async with self._condition:
-            self._writers -= 1
-            self._condition.notify_all()
-
-
-class PathManager:
-    """간단한 Reader-Writer 패턴 기반 경로 관리자"""
+    def _execute_task(self, task: FileTask):
+        # 파일별 락 획득
+        with self.lock:
+            if task.file_path not in self.file_locks:
+                self.file_locks[task.file_path] = threading.RLock()
+        
+        file_lock = self.file_locks[task.file_path]
+        
+        try:
+            with file_lock:
+                result = self._do_file_operation(task)
+                
+            # 결과 처리
+            if task.result_queue:
+                task.result_queue.put(result)
+            elif task.callback:
+                task.callback(result)
+                
+        except Exception as e:
+            error_result = f"ERROR: {e}"
+            if task.result_queue:
+                task.result_queue.put(error_result)
+            elif task.callback:
+                task.callback(error_result)
     
-    _instance = None
-    _lock = threading.Lock()
-    
-    def __new__(cls):
-        if not cls._instance:
-            with cls._lock:
-                if not cls._instance:
-                    cls._instance = super().__new__(cls)
-        return cls._instance
-    
-    def __init__(self):
-        if hasattr(self, '_initialized'):
-            return
+    def _do_file_operation(self, task: FileTask):
+        path = Path(task.file_path)
+        
+        if task.task_type == TaskType.READ:
+            mode = "rb" if task.binary else "r"
+            with open(path, mode) as f:
+                return f.read()
+                
+        elif task.task_type == TaskType.WRITE:
+            mode = "wb" if task.binary else "w"
+            with open(path, mode) as f:
+                f.write(task.data)
+            return "SUCCESS"
             
-        self._initialized = True
-        self._path_locks: weakref.WeakValueDictionary[str, AsyncRWLock] = weakref.WeakValueDictionary()
-        self._global_lock = asyncio.Lock()
+        elif task.task_type == TaskType.DELETE:
+            path.unlink()
+            return "DELETED"
     
-    async def _get_path_lock(self, path_str: str) -> AsyncRWLock:
-        async with self._global_lock:
-            lock = self._path_locks.get(path_str)
-            if lock is not None:
-                return lock  # strong reference
+    def submit_task(self, task: FileTask):
+        self.task_queue.put(task)
+    
+    def read_sync(self, file_path: str, binary=False):
+        result_queue = Queue()
+        task = FileTask(
+            task_id=f"read_{id(result_queue)}",
+            task_type=TaskType.READ,
+            file_path=file_path,
+            binary=binary,
+            result_queue=result_queue
+        )
+        self.submit_task(task)
+        result = result_queue.get()
+        if isinstance(result, str) and result.startswith("ERROR:"):
+            raise IOError(result[7:])
+        return result
+    
+    def write_async(self, file_path: str, data, binary=False, callback=None):
+        task = FileTask(
+            task_id=f"write_{id(data)}",
+            task_type=TaskType.WRITE,
+            file_path=file_path,
+            data=data,
+            binary=binary,
+            callback=callback
+        )
+        self.submit_task(task)
+    
+    def shutdown(self):
+        # 모든 작업 완료 대기
+        self.task_queue.join()
+        
+        # 워커들에게 종료 신호
+        for _ in self.workers:
+            self.task_queue.put(None)
 
-            lock = AsyncRWLock()
-            self._path_locks[path_str] = lock
-            return lock 
-    
-    def __call__(self, path: Union[str, Path], mode: Literal["r", "w", "a"] = "r"):
-        """편의 메서드"""
-        if mode == "r":
-            return PathReadContext(self, Path(path))
-        elif mode in ("w", "a"):
-            return PathWriteContext(self, Path(path), mode)
-        else:
-            raise ValueError(f"Invalid mode: {mode}")
+# 전역 브로커
+file_broker = FileMessageBroker(num_workers=4)
 
-
-class PathReadContext:
-    """읽기 컨텍스트"""
+class ManagedPath:
+    """Path-like wrapper that uses the file broker for operations"""
     
-    def __init__(self, manager: PathManager, path: Path):
-        self.manager = manager
-        self.path = path
-        self.path_str = str(path.resolve())
-        self.lock = None
+    def __init__(self, path):
+        self._path = Path(path)
     
-    async def __aenter__(self):
-        self.lock = await self.manager._get_path_lock(self.path_str)
-        await self.lock.acquire_read()
-        return self.path
+    def __str__(self):
+        return str(self._path)
     
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        await self.lock.release_read()
-
-
-class PathWriteContext:
-    """쓰기 컨텍스트"""
+    def __repr__(self):
+        return f"ManagedPath({self._path!r})"
     
-    def __init__(self, manager: PathManager, path: Path, mode: str):
-        self.manager = manager
-        self.path = path
-        self.path_str = str(path.resolve())
-        self.mode = mode
-        self.lock = None
+    def __fspath__(self):
+        return str(self._path)
     
-    async def __aenter__(self):
-        self.lock = await self.manager._get_path_lock(self.path_str)
-        await self.lock.acquire_write()
-        return self.path
+    def __truediv__(self, other):
+        return ManagedPath(self._path / other)
     
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        await self.lock.release_write()
-
-
-# 사용 예시
-async def example():
-    manager = PathManager()
+    def __rtruediv__(self, other):
+        return ManagedPath(other / self._path)
     
-    # 읽기
-    async with manager("test.txt", "r") as path:
-        print(f"Reading {path}")
+    @property
+    def name(self):
+        return self._path.name
     
-    # 쓰기
-    async with manager("test.txt", "w") as path:
-        print(f"Writing {path}")
-
-
-if __name__ == "__main__":
-    asyncio.run(example())
+    @property
+    def suffix(self):
+        return self._path.suffix
+    
+    @property
+    def parent(self):
+        return ManagedPath(self._path.parent)
+    
+    @property
+    def stem(self):
+        return self._path.stem
+    
+    def exists(self):
+        return self._path.exists()
+    
+    def is_file(self):
+        return self._path.is_file()
+    
+    def is_dir(self):
+        return self._path.is_dir()
+    
+    def mkdir(self, parents=False, exist_ok=False):
+        return self._path.mkdir(parents=parents, exist_ok=exist_ok)
+    
+    def read_text(self, encoding='utf-8'):
+        return file_broker.read_sync(str(self._path), binary=False)
+    
+    def write_text(self, data, callback=None, encoding='utf-8'):
+        file_broker.write_async(str(self._path), data, binary=False, callback=callback)
+    
+    def read_bytes(self):
+        return file_broker.read_sync(str(self._path), binary=True)
+    
+    def write_bytes(self, data, callback=None):
+        file_broker.write_async(str(self._path), data, binary=True, callback=callback)

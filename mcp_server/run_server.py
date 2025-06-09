@@ -5,7 +5,7 @@ from mcp.server import Server
 from mcp.server.stdio import stdio_server
 
 from apimanager import HttpxAPIManager, APIServerError
-from utils import setup_logger, get_now, Configs
+from utils import setup_logger, get_now, Configs, ManagedPath
 from configs import EnvDefine, PathDefine, ToolDefine, UsecaseDefine
 from dart import McpFactory
 
@@ -27,8 +27,9 @@ tools = ToolDefine().__dict__
 os.makedirs(configs.PATH_DATA, exist_ok=True)
 
 # 로거 선언
+path_log = ManagedPath(configs.PATH_LOG)
 now = get_now(configs.REGION, form="%Y%m%d%H%M%S")
-logger = setup_logger(configs.PATH_DATA)
+logger = setup_logger('dart', path_log)
 
 logger.info(f"server started, usecase = {configs.USECASE}")
 
