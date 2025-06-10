@@ -12,7 +12,13 @@ class UsecaseDefine:
         "get_corpinfo",
         "update_corplist",
         "get_corpcode",
-        "get_corp_candidates"
+        "get_corp_candidates",
+        "get_complete_financial_statements",
+        "get_single_company_key_indicators",
+        "get_paid_capital_increase",
+        "get_convertible_bond_issuance",
+        "get_bond_with_warrants_issuance",
+        "get_exchangeable_bond_issuance"
     ])
 
     main:List[str] = field(default_factory=lambda: [
