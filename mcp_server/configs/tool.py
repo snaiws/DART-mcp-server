@@ -52,7 +52,7 @@ class ToolDefine:
     get_complete_financial_statements: dict = field(default_factory=lambda: {"name": "단일회사 전체 재무제표", "base_url": os.getenv("BASE_URL",""), "endpoint": "/fnlttSinglAcntAll.json", "api_key": os.getenv("DART_API_KEY","")}) # 3-4
     get_xbrl_taxonomy_format: dict = field(default_factory=lambda: {"name": "XBRL택사노미재무제표양식", "base_url": os.getenv("BASE_URL",""), "endpoint": "/xbrlTaxonomy.json", "api_key": os.getenv("DART_API_KEY","")}) # 3-5
     get_single_company_key_indicators: dict = field(default_factory=lambda: {"name": "단일회사 주요 재무지표", "base_url": os.getenv("BASE_URL",""), "endpoint": "/fnlttSinglIndx.json", "api_key": os.getenv("DART_API_KEY","")}) # 3-6
-    # get_multi_company_key_indicators: dict = field(default_factory=lambda: {"name": "다중회사 주요 재무지표", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 3-7
+    get_multi_company_key_indicators: dict = field(default_factory=lambda: {"name": "다중회사 주요 재무지표", "base_url": os.getenv("BASE_URL",""), "endpoint": "/fnlttCmpnyIndx.json", "api_key": os.getenv('DART_API_KEY')}) # 3-7
 
     # 지분공시 종합정보 (Comprehensive equity disclosure information)
     get_major_holding_reports: dict = field(default_factory=lambda: {"name": "대량보유 상황보고", "base_url": os.getenv("BASE_URL",""), "endpoint": "/majorstock.json", "api_key": os.getenv("DART_API_KEY","")}) # 4-1
@@ -71,7 +71,7 @@ class ToolDefine:
     # get_creditor_management_start: dict = field(default_factory=lambda: {"name": "채권은행 등의 관리절차 개시", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-10
     # get_litigation_filing: dict = field(default_factory=lambda: {"name": "소송 등의 제기", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-11
     # get_overseas_listing_decision: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장 결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-12
-    # get_overseas_delisting_decision: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장폐지 결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-13
+    get_overseas_delisting_decision: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장폐지 결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "/ovDlstDecsn.json", "api_key": os.getenv('DART_API_KEY')}) # 5-13
     # get_overseas_listing: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-14
     # get_overseas_delisting: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장폐지", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-15
     get_convertible_bond_issuance: dict = field(default_factory=lambda: {"name": "전환사채권 발행결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "/cvbdIsDecsn.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-16
