@@ -52,7 +52,7 @@ DART-MCP-서버를 사용하기 위해 필요한 사항:
     		            "-i",
     		            "-v", ".:/app/data/mcp/DART",
     		            "-e", "DART_API_KEY=your-api-key",
-						"-e", "USECASE=your-uscase"
+			    "-e", "USECASE=your-uscase",
     		            "snaiws/dart:latest"
     		        ]
     		    }
