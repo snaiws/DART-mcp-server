@@ -1,3 +1,4 @@
+from .schema0_etc import *
 from .schema1_disclosure_info import *
 from .schema2_periodic_disclosure_main import *
 from .schema3_periodic_disclosure_finn import *

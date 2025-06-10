@@ -1,5 +1,8 @@
+import os
 from typing import Any, Type
+from urllib.parse import urlparse, parse_qs
 from collections.abc import Sequence
+import datetime
 import logging
 import inspect
 import traceback
@@ -10,23 +13,46 @@ from pydantic import ValidationError, BaseModel
 from . import callers
 from . import docstrings
 from . import schemas
+from . import parser
+# from . import prompts
 
 logger = logging.getLogger()
 
 class McpFactory:
-    def __init__(self, mcp, apiinfo):
+    def __init__(self, mcp, apiinfo:dict):
         # Import modules dynamically
         self.mcp = mcp
         self.apiinfo = apiinfo
+        self.parser_module = parser
         self.function_module = callers
         self.docstring_module = docstrings
         self.schema_module = schemas
+        # self.prompt_module = prompts
+        # self.prompts = {name:obj for name, obj in inspect.getmembers(prompts)}
 
 
     def run(self):
         self.mcp.list_tools()(self.list_tools)
+        # self.mcp.list_prompts()(self.list_prompts)
         self.mcp.call_tool()(self.call_tool)
+        # self.mcp.get_prompt()(self.get_prompt)
 
+
+    # async def list_prompts(self) -> list[types.Prompt]:
+    #     return list(self.prompts.keys())
+    
+
+    # async def get_prompt(self, name:str, arguments:dict[str,str] | None = None) -> types.GetPromptResult:
+    #     return types.GetPromptResult(
+    #         description=self.prompts[name].description,
+    #         messages=[
+    #             types.PromptMessage(
+    #                 role=self.prompts[name].role,
+    #                 content=types.TextContent(type="text", text=self.prompts[name].text)
+    #             )
+    #         ]
+    #     )
+    
 
     async def list_tools(self) -> list[types.Tool]: 
         list_of_tools = [
@@ -50,7 +76,9 @@ class McpFactory:
         result = ""
 
         try:
-            function = getattr(self.function_module, name)
+            function = getattr(self.function_module, name, None) or getattr(self.parser_module, name, None)
+            if function is None:
+                raise AttributeError(f"Function '{name}' not found in any module")
             
             dynamic_args = self._get_matching_schema(name)(**arguments)
             dynamic_args = dict(dynamic_args)

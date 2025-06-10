@@ -50,7 +50,7 @@ async def get_corpinfo(
     # 법인구분 처리
     data['corp_cls'] = transform2[data['corp_cls']]
     # dict to string
-    result = [f"{transform1[k]}: {data[k]}" for k in transform1]
+    result = [f"{transform1[k]}: {data[k]}" for k in transform1 if data.get(k,"")]
     result = "\n".join(result)
 
     return [result]
