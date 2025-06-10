@@ -122,42 +122,9 @@ async def get_split_merger_decision(
     result = []
     for datum in data['list']:
         # dict to string
-        datum = [f"{transform1[k]}: {datum[k]}" for k in transform1]
+        datum = [f"{transform1[k]}: {datum.get(k,'-')}" for k in transform1]
         datum = "\n".join(datum)
         result.append(datum)
     return result
 
     
-    
-# 사용 예시
-if __name__ == "__main__":
-    # uv run -m dart.callers.api2_periodic_disclosure_main.api2_1_capital
-    import os
-    import asyncio
-
-    from dotenv import load_dotenv
-    load_dotenv(verbose=False)
-
-    async def test():
-        base_url = "https://opendart.fss.or.kr/api"
-        endpoint = "/irdsSttus.json"
-        API_KEY = os.getenv("DART_API_KEY")
-        corp_code = "00126380"
-        bgn_de = "2024"
-        end_de = "11013"
-        print(API_KEY)
-
-        results = await get_split_merger_decision(
-            base_url = base_url,
-            endpoint = endpoint,
-            api_key = API_KEY,
-            corp_code = corp_code,  # 삼성전자 고유번호
-            bgn_de = bgn_de,
-            end_de = end_de
-        )
-
-        for result in results:
-            print("---")
-            print(result)
-        
-    asyncio.run(test())

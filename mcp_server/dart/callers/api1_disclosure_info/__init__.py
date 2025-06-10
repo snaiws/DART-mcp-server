@@ -2,5 +2,3 @@ from .api1_1_get_disclosurelist import get_disclosurelist
 from .api1_2_get_corpinfo import get_corpinfo
 from .api1_3_get_disclosure import get_disclosure
 from .api1_4_update_corplist import update_corplist
-from .api1_5_get_corpcode import get_corpcode
-from .api1_6_get_corp_candidates import get_corp_candidates

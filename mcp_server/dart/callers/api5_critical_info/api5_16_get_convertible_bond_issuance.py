@@ -87,7 +87,7 @@ async def get_convertible_bond_issuance(
         # 법인구분처리
         datum['corp_cls'] = transform2[datum['corp_cls']]
         # dict to string
-        datum = [f"{transform1[k]}: {datum[k]}" for k in transform1]
+        datum = [f"{transform1[k]}: {datum.get(k,'-')}" for k in transform1]
         datum = "\n".join(datum)
         result.append(datum)
     return result

@@ -1,0 +1,2 @@
+from .doc4_1_get_major_holding_reports import Docstring_get_major_holding_reports
+from .doc4_2_get_executive_major_shareholders_reports import Docstring_get_executive_major_shareholders_reports

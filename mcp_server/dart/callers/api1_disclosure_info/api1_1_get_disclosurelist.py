@@ -88,7 +88,7 @@ async def get_disclosurelist(
         rm = [f"비고{i+1}: {transform3[x]}" for i, x in enumerate(rm)]
         # 법인구분처리
         datum['corp_cls'] = transform2[datum['corp_cls']]
-        datum = [f"{transform1[k]}: {datum[k]}" for k in transform1] + rm
+        datum = [f"{transform1[k]}: {datum[k]}" for k in transform1 if datum.get(k,"")] + rm
         datum = "\n".join(datum)
         result.append(datum)
     return result
