@@ -1,46 +1,37 @@
 import os
 import asyncio
-import argparse
-import traceback
 
 from mcp.server import Server
 from mcp.server.stdio import stdio_server
 
 from apimanager import HttpxAPIManager, APIServerError
-from utils import setup_logger, get_now
-from configs import ConfigDefineTool
+from utils import setup_logger, get_now, Configs, ManagedPath
+from configs import EnvDefine, PathDefine, ToolDefine, UsecaseDefine
 from dart import McpFactory
 
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--usecase', '-t', type=str, default='-', 
-                   help='유즈케이스 (기본값: "모든 툴 로드")')
-args = parser.parse_args()
-usecase_key = args.usecase
 
 app = Server("DART")
 
 
 # 환경변수, 상수
-config = ConfigDefineTool()
-env = config.get_env()
-mapping = config.get_mapping()
-apiinfo = config.get_api().to_dict()
-usecases = config.get_usecase().to_dict()
+configs = Configs()
+configs.add(EnvDefine())
+configs.add(PathDefine())
+configs.register_env()
 
-usecase = usecases.get(usecase_key, [])
-if usecase:
-    apiinfo = {key: apiinfo[key] for key in usecase if key in apiinfo}
+usecase = UsecaseDefine().__dict__.get(configs.USECASE,"-")
+tools = ToolDefine().__dict__
 
 
 # 내 문서에 mcp 서버용 디렉토리 생성(회사리스트, 로그)
-os.makedirs(env.PATH_DATA, exist_ok=True)
+os.makedirs(configs.PATH_DATA, exist_ok=True)
 
 # 로거 선언
-now = get_now(env.REGION, form="%Y%m%d%H%M%S")
-logger = setup_logger(env.PATH_DATA)
+path_log = ManagedPath(configs.PATH_LOG)
+now = get_now(configs.REGION, form="%Y%m%d%H%M%S")
+logger = setup_logger('', path_log)
 
-logger.info(f"server started, usecase = {usecase_key}")
+logger.info(f"server started, usecase = {configs.USECASE}")
 
 # API 클라이언트 선언
 class Dart_server_exception(APIServerError):
@@ -59,15 +50,16 @@ class Dart_server_exception(APIServerError):
                     return True
         except:
             return False
+        
 client = HttpxAPIManager(
-    env.BASE_URL, 
-    timeout = env.CLIENT_MAX_PATIENT, 
-    rate_limit = env.API_RATE_LIMIT, 
-    rate_period = env.API_RATE_PERIOD,
+    configs.BASE_URL, 
+    timeout = configs.CLIENT_MAX_PATIENT, 
+    rate_limit = configs.API_RATE_LIMIT, 
+    rate_period = configs.API_RATE_PERIOD,
     exception_server_error = Dart_server_exception
     )
 
-factory = McpFactory(mcp=app, apiinfo=apiinfo)
+factory = McpFactory(mcp=app, apiinfo=tools)
 
 factory.run()
 
