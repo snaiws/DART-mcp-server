@@ -149,7 +149,7 @@ class BaseAPIManager(ABC):
         await self._check_rate_limit()
         await self.open_client()
         logger.debug(endpoint)
-        response = await self.post(
+        response = await self._post(
             endpoint=endpoint,
             data=data,
             json_data=json_data,
@@ -165,7 +165,7 @@ class BaseAPIManager(ABC):
         await self._check_rate_limit()
         await self.open_client()
         logger.debug(endpoint)
-        response = await self.post(
+        response = await self._put(
             endpoint=endpoint,
             data=data,
             json_data=json_data,
@@ -181,7 +181,7 @@ class BaseAPIManager(ABC):
         await self._check_rate_limit()
         await self.open_client()
         logger.debug(endpoint)
-        response = await self._get(
+        response = await self._delete(
             endpoint=endpoint,
             params=params,
             headers=headers
@@ -196,7 +196,7 @@ class BaseAPIManager(ABC):
         await self._check_rate_limit()
         await self.open_client()
         logger.debug(endpoint)
-        response = await self.post(
+        response = await self._patch(
             endpoint=endpoint,
             data=data,
             json_data=json_data,
