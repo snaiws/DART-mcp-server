@@ -1,63 +1,55 @@
-import os
 import logging
-from logging.handlers import TimedRotatingFileHandler
+import time
+from pathlib import Path
+import os
 
-def setup_logger(LOG_DIR, log_level="DEBUG", retention_days=7):
-    """
-    기본 TimedRotatingFileHandler를 사용한 단순한 로깅 설정
-    """
-    # 고정 파일명 설정
-    LOG_FILE = os.path.join(LOG_DIR, "application.log")
-    
-    # 기본 포맷 설정 - 로거 이름과 함수 이름 포함
+
+class TimeSizeRotatingHandler(logging.Handler):
+    def __init__(self, path: Path, max_bytes=100* 1024*1024, interval_sec=604800):
+        super().__init__()
+        self.path = path
+        self.max_bytes = max_bytes
+        self.interval_sec = interval_sec
+        self.last_rotated = time.time()
+        self.base_path = path
+        self.suffix_count = 0
+        Path(self.base_path).parent.mkdir(parents=True, exist_ok=True)
+
+    def emit(self, record):
+            now = time.time()
+            msg = self.format(record) + "\n"
+
+            # Check time-based rotation
+            if now - self.last_rotated > self.interval_sec:
+                self._rotate()
+                self.last_rotated = now
+            # Check size-based rotation
+            elif os.path.exists(self.base_path) and os.path.getsize(self.base_path) > self.max_bytes:
+                self._rotate()
+            
+            # Write the log message to file
+            with open(self.base_path, 'a', encoding='utf-8') as f:
+                f.write(msg)
+
+    def _rotate(self):
+        rotated_name = f"{self.base_path}.{self.suffix_count}"
+        os.rename(self.base_path, rotated_name)
+        self.suffix_count += 1
+
+# ======= Logger Setup =======
+
+def setup_logger(name: str, log_path,
+                 level=logging.DEBUG,
+                 max_bytes=100 * 1024 * 1024,
+                 interval_sec=604800):
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+
+    handler = TimeSizeRotatingHandler(log_path, max_bytes=max_bytes, interval_sec=interval_sec)
     formatter = logging.Formatter('{asctime} | {name} | {funcName} | {levelname} | {message}', 
                                  '%Y-%m-%d %H:%M:%S', 
                                  style='{')
-    
-    # 기본 파일 핸들러 설정 (시간 기반만)
-    file_handler = TimedRotatingFileHandler(
-        LOG_FILE,
-        when='midnight',
-        interval=1,
-        backupCount=retention_days
-    )
-    file_handler.setLevel(log_level)
-    file_handler.setFormatter(formatter)
-    
-    # 콘솔 출력 핸들러
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.INFO)
-    console_handler.setFormatter(formatter)
-    
-    # 로그 디렉토리가 없으면 생성
-    os.makedirs(LOG_DIR, exist_ok=True)
-    
-    # 루트 로거 설정
-    root_logger = logging.getLogger()
-    root_logger.setLevel(log_level)
-    
-    # 기존 핸들러 제거
-    for handler in root_logger.handlers[:]:
-        root_logger.removeHandler(handler)
-    
-    # 새 핸들러 추가
-    root_logger.addHandler(file_handler)
-    root_logger.addHandler(console_handler)
-    
-    return root_logger
+    handler.setFormatter(formatter)
 
-
-# 테스트용 코드
-if __name__ == "__main__":
-    from dotenv import load_dotenv
-    load_dotenv(verbose=False)
-    
-    LOG_DIR = os.getenv("PATH_LOG_VIRTUAL", "./logs")
-        
-    # 단순한 로깅 설정
-    root_logger = setup_logger(LOG_DIR)
-    
-    # 각 로거 사용 예
-    root_logger.info("Data processing started")
-    root_logger.debug("Raw data received: XYZ")
-    root_logger.error("Data validation error")
+    logger.addHandler(handler)
+    return logger
