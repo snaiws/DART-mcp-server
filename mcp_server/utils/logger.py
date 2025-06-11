@@ -39,7 +39,7 @@ class TimeSizeRotatingHandler(logging.Handler):
 # ======= Logger Setup =======
 
 def setup_logger(name: str, log_path,
-                 level=logging.DEBUG,
+                 level=logging.INFO,
                  max_bytes=100 * 1024 * 1024,
                  interval_sec=604800):
     logger = logging.getLogger(name)

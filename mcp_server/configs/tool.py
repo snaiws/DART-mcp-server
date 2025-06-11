@@ -7,13 +7,19 @@ class ToolDefine:
     '''
     api url endpoint 관리 클래스
     '''
+    # 파서
+    get_corpcode: dict = field(default_factory=lambda: {"name": "기업코드검색", "base_url": "", "endpoint": "", "path_corplist":os.getenv("PATH_CORPLIST")}) # 1-5 (임의추가)
+    get_corp_candidates: dict = field(default_factory=lambda: {"name": "기업코드검색후보", "base_url": "", "endpoint": "", "path_corplist":os.getenv("PATH_CORPLIST")}) # 1-6 (임의추가)
+    xmlparser_step1_structure: dict = field(default_factory=lambda: {"name": "xml구조파악"})
+    xmlparser_step2_contents: dict = field(default_factory=lambda: {"name": "xml목차파악"})
+    xmlparser_step3_query: dict = field(default_factory=lambda: {"name": "xml내용쿼리"})
+    xmlparser_get_table_csv: dict = field(default_factory=lambda: {"name": "xml테이블파싱"})
+
     # 공시정보 (disclosure information)
     get_disclosurelist: dict = field(default_factory=lambda: {"name": "공시검색", "base_url": os.getenv("BASE_URL",""), "endpoint": "/list.json", "api_key": os.getenv("DART_API_KEY","")}) # 1-1
     get_corpinfo: dict = field(default_factory=lambda: {"name": "기업개황", "base_url": os.getenv("BASE_URL",""), "endpoint": "/company.json", "api_key": os.getenv("DART_API_KEY","")}) # 1-2
     get_disclosure: dict = field(default_factory=lambda: {"name": "공시서류원본파일", "base_url": os.getenv("BASE_URL",""), "endpoint": "document.xml", "api_key": os.getenv("DART_API_KEY",""), "path_disclosures":os.getenv("PATH_DISCLOSURES")}) # 1-3
     update_corplist: dict = field(default_factory=lambda: {"name": "고유번호", "base_url": os.getenv("BASE_URL",""), "endpoint": "/corpCode.xml", "api_key": os.getenv("DART_API_KEY",""), "path_base":os.getenv("PATH_DATA")}) # 1-4
-    get_corpcode: dict = field(default_factory=lambda: {"name": "기업코드검색", "base_url": "", "endpoint": "", "path_corplist":os.getenv("PATH_CORPLIST")}) # 1-5 (임의추가)
-    get_corp_candidates: dict = field(default_factory=lambda: {"name": "기업코드검색후보", "base_url": "", "endpoint": "", "path_corplist":os.getenv("PATH_CORPLIST")}) # 1-6 (임의추가)
     
     # 정기보고서 주요정보 (Regular report key information)
     get_capitalstatus: dict = field(default_factory=lambda: {"name": "증자(감자) 현황", "base_url": os.getenv("BASE_URL",""), "endpoint": "/irdsSttus.json", "api_key": os.getenv("DART_API_KEY","")}) # 2-1

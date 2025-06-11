@@ -8,11 +8,17 @@ class UsecaseDefine:
     나중에 바뀌는 서버환경마다 적응시킬 수 있을까
     '''
     light:List[str] = field(default_factory=lambda: [
-        "get_disclosurelist",
-        "get_corpinfo",
-        "update_corplist",
         "get_corpcode",
         "get_corp_candidates",
+        "xmlparser_step1_structure",
+        "xmlparser_step2_contents",
+        "xmlparser_step3_query",
+        "xmlparser_get_table_csv",
+        "get_disclosurelist",
+        "get_corpinfo",
+        "get_disclosure",
+        "update_corplist",
+        "get_xbrl_financial_statements",
         "get_complete_financial_statements",
         "get_single_company_key_indicators",
         "get_paid_capital_increase",

@@ -1,2 +1,6 @@
 from .doc_get_corpcode import Docstring_get_corpcode
 from .doc_get_corp_candidates import Docstring_get_corp_candidates
+from .doc_xmlparser_get_table_csv import Docstring_xmlparser_get_table_csv
+from .doc_xmlparser_step1_structure import Docstring_xmlparser_step1_structure
+from .doc_xmlparser_step2_contents import Docstring_xmlparser_step2_contents
+from .doc_xmlparser_step3_query import Docstring_xmlparser_step3_query
