@@ -53,7 +53,15 @@ class XMLNavigator:
             
             return lines
         
-        root = next((elem for elem in self.soup.children if hasattr(elem, 'name')), None)
+        # 첫 번째 태그 찾기
+        root = self.soup.find()  
+        if root is None:
+            for child in self.soup.children:
+                if hasattr(child, 'name') and child.name:
+                    root = child
+                    break
+        
+
         if not root:
             return "구조 없음"
         
