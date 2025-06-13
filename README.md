@@ -1,5 +1,7 @@
 # 소개
 
+[![smithery badge](https://smithery.ai/badge/snaiws/dart-mcp-server)](https://smithery.ai/server/snaiws/dart-mcp-server)
+
 DART-MCP-서버는 한국의 전자공시시스템(DART) API를 활용하여 Claude와 같은 AI 모델이 상장 기업의 공시 정보에 접근할 수 있게 하는 Model Context Protocol(MCP) 서버입니다. 이 서버를 활용하면 금융 데이터, 기업 공시 정보, 재무제표 등을 AI 모델이 쉽게 분석하고 활용할 수 있습니다.
 
 ### MCP란 무엇인가?
@@ -28,6 +30,14 @@ DART-MCP-서버를 사용하기 위해 필요한 사항:
 3. [DART API 키 (금융감독원 전자공시시스템에서 발급)](https://opendart.fss.or.kr/uss/umt/EgovMberInsertView.do)
 
 ## 서버 설치 및 설정 방법
+
+### Installing via Smithery
+
+To install dart-mcp-server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/snaiws/dart-mcp-server):
+
+```bash
+npx -y @smithery/cli install snaiws/dart-mcp-server --client claude
+```
 
 ### 1. DART API 키 발급받기
 
