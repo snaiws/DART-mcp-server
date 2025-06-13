@@ -19,8 +19,9 @@ configs.add(EnvDefine())
 configs.add(PathDefine())
 configs.register_env()
 
-usecase = UsecaseDefine().__dict__.get(configs.USECASE,"-")
-tools = {k: ToolDefine().__dict__[k] for k in usecase if k in ToolDefine().__dict__}
+usecase_tools = UsecaseDefine().__dict__.get(configs.USECASE, [])
+all_tools = ToolDefine().__dict__
+tools = {k: all_tools[k] for k in usecase_tools if k in all_tools} if usecase_tools else all_tools
 
 # 내 문서에 mcp 서버용 디렉토리 생성(회사리스트, 로그)
 os.makedirs(configs.PATH_DATA, exist_ok=True)
