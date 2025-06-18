@@ -1,0 +1,38 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+
+startCommand:
+  type: stdio
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'python',
+      args: ['-m', 'mcp_server.run_server'],
+      env: {
+        DART_API_KEY: config.dartApiKey,
+        USECASE: config.usecase,
+        PATH_DATA: config.pathData,
+        PYTHONPATH: '/app/mcp_server'
+      }
+    })
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - dartApiKey
+    properties:
+      dartApiKey:
+        type: string
+        description: DART API key
+      usecase:
+        type: string
+        default: light
+        description: Usecase category for loading tools
+      pathData:
+        type: string
+        default: ./data/mcp/DART
+        description: Local data directory for storing corp lists and disclosures
+  exampleConfig:
+    dartApiKey: your-dart-api-key
+    usecase: light
+    pathData: ./data/mcp/DART
