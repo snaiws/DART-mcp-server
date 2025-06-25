@@ -19,7 +19,7 @@ class ToolDefine:
     get_disclosurelist: dict = field(default_factory=lambda: {"name": "공시검색", "base_url": os.getenv("BASE_URL",""), "endpoint": "/list.json", "api_key": os.getenv("DART_API_KEY","")}) # 1-1
     get_corpinfo: dict = field(default_factory=lambda: {"name": "기업개황", "base_url": os.getenv("BASE_URL",""), "endpoint": "/company.json", "api_key": os.getenv("DART_API_KEY","")}) # 1-2
     get_disclosure: dict = field(default_factory=lambda: {"name": "공시서류원본파일", "base_url": os.getenv("BASE_URL",""), "endpoint": "document.xml", "api_key": os.getenv("DART_API_KEY",""), "path_disclosures":os.getenv("PATH_DISCLOSURES")}) # 1-3
-    update_corplist: dict = field(default_factory=lambda: {"name": "고유번호", "base_url": os.getenv("BASE_URL",""), "endpoint": "/corpCode.xml", "api_key": os.getenv("DART_API_KEY",""), "path_base":os.getenv("PATH_DATA")}) # 1-4
+    update_corplist: dict = field(default_factory=lambda: {"name": "고유번호", "base_url": os.getenv("BASE_URL",""), "endpoint": "/corpCode.xml", "api_key": os.getenv("DART_API_KEY",""), "path_corplist":os.getenv("PATH_CORPLIST")}) # 1-4
     
     # 정기보고서 주요정보 (Regular report key information)
     get_capitalstatus: dict = field(default_factory=lambda: {"name": "증자(감자) 현황", "base_url": os.getenv("BASE_URL",""), "endpoint": "/irdsSttus.json", "api_key": os.getenv("DART_API_KEY","")}) # 2-1
