@@ -66,17 +66,17 @@ class ToolDefine:
 
     # 주요사항보고서 주요정보 (Key issues report information)
     get_asset_acquisition_disposal: dict = field(default_factory=lambda: {"name": "자산양수도(기타), 풋백옵션", "base_url": os.getenv("BASE_URL",""), "endpoint": "/astInhtrfEtcPtbkOpt.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-1
-    # get_default_occurrence: dict = field(default_factory=lambda: {"name": "부도발생", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-2
-    # get_business_suspension: dict = field(default_factory=lambda: {"name": "영업정지", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-3
+    get_default_occurrence: dict = field(default_factory=lambda: {"name": "부도발생", "base_url": os.getenv("BASE_URL",""), "endpoint": "/dfOcr.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-2
+    get_business_suspension: dict = field(default_factory=lambda: {"name": "영업정지", "base_url": os.getenv("BASE_URL",""), "endpoint": "/bsnSp.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-3
     get_rehabilitation_filing: dict = field(default_factory=lambda: {"name": "회생절차 개시신청", "base_url": os.getenv("BASE_URL",""), "endpoint": "/ctrcvsBgrq.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-4
     get_dissolution_event: dict = field(default_factory=lambda: {"name": "해산사유 발생", "base_url": os.getenv("BASE_URL",""), "endpoint": "/dsRsOcr.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-5
     get_paid_capital_increase: dict = field(default_factory=lambda: {"name": "유상증자 결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "/piicDecsn.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-6
     get_free_capital_increase: dict = field(default_factory=lambda: {"name": "무상증자 결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "/fricDecsn.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-7
     get_mixed_capital_increase: dict = field(default_factory=lambda: {"name": "유무상증자 결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "/pifricDecsn.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-8
     get_capital_reduction: dict = field(default_factory=lambda: {"name": "감자 결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "/crDecsn.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-9
-    # get_creditor_management_start: dict = field(default_factory=lambda: {"name": "채권은행 등의 관리절차 개시", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-10
-    # get_litigation_filing: dict = field(default_factory=lambda: {"name": "소송 등의 제기", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-11
-    # get_overseas_listing_decision: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장 결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "", "api_key": os.getenv("DART_API_KEY","")}) # 5-12
+    get_creditor_management_start: dict = field(default_factory=lambda: {"name": "채권은행 등의 관리절차 개시", "base_url": os.getenv("BASE_URL",""), "endpoint": "/bnkMngtPcbg.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-10
+    get_litigation_filing: dict = field(default_factory=lambda: {"name": "소송 등의 제기", "base_url": os.getenv("BASE_URL",""), "endpoint": "/lwstLg.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-11
+    get_overseas_listing_decision: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장 결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "/ovLstDecsn.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-12
     get_overseas_delisting_decision: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장폐지 결정", "base_url": os.getenv("BASE_URL",""), "endpoint": "/ovDlstDecsn.json", "api_key": os.getenv('DART_API_KEY')}) # 5-13
     get_overseas_listing: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장", "base_url": os.getenv("BASE_URL",""), "endpoint": "/ctrcvsBgrq.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-14
     get_overseas_delisting: dict = field(default_factory=lambda: {"name": "해외 증권시장 주권등 상장폐지", "base_url": os.getenv("BASE_URL",""), "endpoint": "/dsRsOcr.json", "api_key": os.getenv("DART_API_KEY","")}) # 5-15
